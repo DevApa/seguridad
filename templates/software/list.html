@@ -1,18 +1,18 @@
 {% extends 'parciales/list.html' %}
-
+<!--Botón e icono crear-->
 {% block btn_creacion %}
     <div class="mb-2">
-        <button class="rounded-circle btn btn-outline-info" type="button" onclick="openModal('{% url 'inv:create-type' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
+        <button class="rounded-circle btn btn-outline-info" type="button" onclick="openModal('{% url 'inv:create-soft' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
             <i class="fas fa-plus"></i>
         </button>
     </div>
 {% endblock %}
-
 <!--Columnas de la tabla-->
 {% block cols %}
     <th>N°</th>
     <th>Nombre</th>
     <th>Descripción</th>
+    <th>Versión</th>
     <th>Acción</th>
 {% endblock %}
 <!--Filas de la tabla-->
@@ -22,11 +22,12 @@
             <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
+            <td>{{ item.version }}</td>
             <td>
-                <button onclick="openModal('{% url 'inv:update-type' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
+                <button onclick="openModal('{% url 'inv:update-soft' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
                     <i class="fas fa-pencil-alt"></i>
                 </button>
-                <button onclick="confirmDelete('{% url 'inv:delete-type' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
+                <button onclick="confirmDelete('{% url 'inv:delete-soft' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
                     <i class="fas fa-trash"></i>
                 </button>
                 {% csrf_token %}

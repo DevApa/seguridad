@@ -65,7 +65,7 @@ class MenuForm(ModelForm):
         self.fields['parent_id'].required = False
         self.fields['roles'].required = False
         self.fields['modulo_id'].blank = True
-        self.fields['parent_id'].queryset = Menu.objects.none()
+        self.fields['parent_id'].queryset = Menu.objects.all()
         self.fields['modulo_id'].queryset = Modulo.objects.order_by('orden')
         self.fields['icon'].empty_label = 'Seleccione una icono '
         self.fields['icon'].queryset = Icono.objects.all()

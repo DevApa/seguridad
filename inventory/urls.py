@@ -6,6 +6,7 @@ from inventory.views.generacion.views import *
 from inventory.views.item.views import *
 from inventory.views.marca.views import *
 from inventory.views.modelo.views import *
+from inventory.views.software.views import *
 from inventory.views.tipo.views import *
 from inventory.views.ubicacion.views import *
 
@@ -46,5 +47,10 @@ urlpatterns = [
     url(r'^modelo/crear', login_required(EModelCreateView.as_view()), name='create-model'),
     url(r'^modelo/editar/(?P<pk>\d+)/$', login_required(EModelUpdateView.as_view()), name='update-model'),
     url(r'^modelo/eliminar/(?P<pk>\d+)/$', login_required(EModelDeleteView.as_view()), name='delete-model'),
+
+    url(r'^software/lista', login_required(SoftwareListView.as_view()), name='list-soft'),
+    url(r'^software/crear', login_required(SoftwareCreateView.as_view()), name='create-soft'),
+    url(r'^software/editar/(?P<pk>\d+)/$', login_required(SoftwareUpdateView.as_view()), name='update-soft'),
+    url(r'^software/eliminar/(?P<pk>\d+)/$', login_required(SoftwareDeleteView.as_view()), name='delete-soft'),
 ]
 

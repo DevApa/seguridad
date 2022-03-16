@@ -6,14 +6,19 @@ from inventory.models import *
 class TypeForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['description'].widget.attrs['autofocus'] = True
+        self.fields['name'].widget.attrs['autofocus'] = True
 
     class Meta:
-        model = Type
-        fields = ['code', 'description']
+        model = Tipo
+        fields = ['name', 'description']
+
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripción'
+        }
 
         widgets = {
-            'code': TextInput(attrs={'class': 'form-control', 'placeholder': 'Código'}),
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del tipo de item'})
         }
 
@@ -37,7 +42,12 @@ class FrequencyForm(ModelForm):
 
     class Meta:
         model = Frequency
-        fields = '__all__'
+        fields = ['name', 'description']
+
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripción'
+        }
 
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el frecuencia'}),
@@ -57,13 +67,13 @@ class FrequencyForm(ModelForm):
         return data
 
 
-class TechnologyForm(ModelForm):
+class BrandForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['autofocus'] = True
 
     class Meta:
-        model = Frequency
+        model = Brand
         fields = ['name', 'description']
 
         labels = {
@@ -72,34 +82,6 @@ class TechnologyForm(ModelForm):
         }
 
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el Tecnología'}),
-            'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
-        }
-
-    def save(self, commit=True):
-        data = {}
-        form = super()
-        try:
-            if form.is_valid():
-                form.save()
-            else:
-                data['error'] = form.errors
-        except Exception as e:
-            data['error'] = str(e)
-        return data
-
-
-class BrandForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['code'].widget.attrs['autofocus'] = True
-
-    class Meta:
-        model = Brand
-        fields = ['code', 'name', 'description']
-
-        widgets = {
-            'code': TextInput(attrs={'class': 'form-control', 'placeholder': 'Código'}),
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre Marca'}),
             'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
         }
@@ -125,6 +107,11 @@ class EModelForm(ModelForm):
     class Meta:
         model = EModel
         fields = ['name', 'description']
+
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripción'
+        }
 
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el modelo'}),
@@ -153,6 +140,11 @@ class LocationForm(ModelForm):
         model = Location
         fields = ['name', 'description']
 
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripción'
+        }
+
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí la ubicación'}),
             'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
@@ -180,6 +172,11 @@ class GenerationForm(ModelForm):
         model = Generation
         fields = ['name', 'description']
 
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripción'
+        }
+
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí la generación'}),
             'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
@@ -201,21 +198,21 @@ class GenerationForm(ModelForm):
 class SoftwareForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['code'].widget.attrs['autofocus'] = True
+        self.fields['name'].widget.attrs['autofocus'] = True
 
     class Meta:
         model = Software
-        fields = ['code', 'description', 'version']
+        fields = ['name', 'description', 'version']
 
         labels = {
-            'code': 'Código',
+            'name': 'Nombre',
             'description': 'Descripción',
             'version': 'Versión'
         }
 
         widgets = {
-            'code': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el software'}),
-            'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el software'}),
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descrpción'}),
             'version': TextInput(attrs={'class': 'form-control', 'placeholder': 'Versión del software'}),
         }
 
@@ -237,15 +234,22 @@ class HeadingForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['item'].widget.attrs['autofocus'] = True
         self.fields['item'].empty_label = 'Seleccione un item...!'
-        self.fields['item'].queryset = Type.objects.filter(state=True)
+        self.fields['item'].queryset = Tipo.objects.filter(state=True)
 
     class Meta:
         model = Heading
-        fields = ['item', 'description']
+        fields = ['item', 'name', 'description']
+
+        labels = {
+            'item': 'Item',
+            'name': 'Nombre',
+            'description': 'Descripción'
+        }
 
         widgets = {
             'item': Select(attrs={'class': 'form-control select2'}),
-            'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Versión del software'})
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripción'})
         }
 
     def save(self, commit=True):
@@ -266,23 +270,21 @@ class ItemForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['type'].widget.attrs['autofocus'] = True
         self.fields['type'].empty_label = 'Seleccione un tipo...!'
-        self.fields['type'].queryset = Type.objects.all()
+        self.fields['type'].queryset = Tipo.objects.all()
         self.fields['model'].empty_label = 'Seleccione un modelo..!'
 
     class Meta:
         model = Item
-        fields = ['type', 'model', 'description']
+        fields = ['name', 'description']
 
         labels = {
-            'type': 'Tipo',
-            'model': 'Modelo',
+            'name': 'Nombre',
             'description': 'Descripción',
         }
 
         widgets = {
-            'type': Select(attrs={'class': 'form-control select2'}),
-            'model': Select(attrs={'class': 'form-control select2'}),
-            'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripción del item'}),
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripción'}),
         }
 
     def save(self, commit=True):

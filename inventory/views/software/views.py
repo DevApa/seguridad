@@ -1,31 +1,31 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from inventory.models import Tipo
-from inventory.forms import TypeForm
+from inventory.models import Software
+from inventory.forms import SoftwareForm
 from django.http import JsonResponse
 
 
-class TypeListView(ListView):
-    model = Tipo
-    template_name = 'tipo/list.html'
-    success_url = reverse_lazy('inv:list-type')
+class SoftwareListView(ListView):
+    model = Software
+    template_name = 'software/list.html'
+    success_url = reverse_lazy('inv:list-soft')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = 'Matenimiento Tipos'
-        context['pageview'] = 'Tipo'
-        context['object_list'] = Tipo.objects.filter(state=True)
-        context['create_url'] = reverse_lazy('inv:create-type')
-        context['url_list'] = reverse_lazy('inv:list-type')
+        context['heading'] = 'Matenimiento Software'
+        context['pageview'] = 'Software'
+        context['object_list'] = Software.objects.filter(state=True)
+        context['create_url'] = reverse_lazy('inv:create-soft')
+        context['url_list'] = reverse_lazy('inv:list-soft')
         return context
 
 
-class TypeCreateView(CreateView):
-    model = Tipo
-    form_class = TypeForm
-    template_name = "tipo/create.html"
-    success_url = reverse_lazy('inv:list-type')
+class SoftwareCreateView(CreateView):
+    model = Software
+    form_class = SoftwareForm
+    template_name = "software/create.html"
+    success_url = reverse_lazy('inv:list-soft')
     
     def post(self, request, *args, **kwargs):
         data = {}
@@ -34,7 +34,7 @@ class TypeCreateView(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} registrado correctamente'
+                    message = f'Software registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
@@ -51,17 +51,17 @@ class TypeCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación de Tipo'
+        context['title'] = 'Creación de Software'
         context['action'] = 'add'
-        context['list_url'] = reverse_lazy('inv:list-type')
+        context['list_url'] = reverse_lazy('inv:list-soft')
         return context
     
 
-class TypeUpdateView(UpdateView):
-    model = Tipo
-    form_class = TypeForm
-    template_name = "tipo/update.html"
-    success_url = reverse_lazy('inv:list-type')
+class SoftwareUpdateView(UpdateView):
+    model = Software
+    form_class = SoftwareForm
+    template_name = "software/update.html"
+    success_url = reverse_lazy('inv:list-soft')
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -87,15 +87,15 @@ class TypeUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Actualizar Tipo'
+        context['title'] = 'Actualizar Software'
         context['action'] = 'edit'
-        context['list_url'] = reverse_lazy('inv:list-type')
+        context['list_url'] = reverse_lazy('inv:list-soft')
         return context
 
 
-class TypeDeleteView(DeleteView):
-    model = Tipo
-    success_url = reverse_lazy('inv:list-type')
+class SoftwareDeleteView(DeleteView):
+    model = Software
+    success_url = reverse_lazy('inv:list-soft')
 
     def delete(self, request, *args, **kwargs):
         if request.is_ajax():
@@ -108,4 +108,4 @@ class TypeDeleteView(DeleteView):
             response.status_code = 201
             return response
         else:
-            return redirect('inv:list-type')
+            return redirect('inv:list-soft')

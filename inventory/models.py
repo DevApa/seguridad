@@ -125,8 +125,6 @@ class Type(models.Model):
 
 
 class Item(models.Model):
-    type = models.ForeignKey(Type, db_column='id_tipo', on_delete=models.CASCADE)
-    model = models.ManyToManyField(EModel)
     description = models.CharField(db_column='description', max_length=1000)
     user_create = models.CharField(max_length=25, db_column='usuario_registra')
     user_update = models.CharField(max_length=25, db_column='usuario_modifica')
@@ -177,7 +175,7 @@ class Heading(models.Model):
 
 
 class HeadingDetail(models.Model):
-    heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE)
+    heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE, verbose_name="Rubro")
     description = models.CharField(db_column='description', max_length=1000)
     user_create = models.CharField(max_length=25, db_column='usuario_registra')
     user_update = models.CharField(max_length=25, db_column='usuario_modifica')
@@ -193,8 +191,8 @@ class HeadingDetail(models.Model):
 
 
 class HeadingCapacity(models.Model):
-    heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE)
-    value = models.CharField(db_column='valor', max_length=1000)
+    heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE, verbose_name="Rubro")
+    value = models.CharField(db_column='valor', max_length=1000, verbose_name="Descripcion")
     user_create = models.CharField(max_length=25, db_column='usuario_registra')
     user_update = models.CharField(max_length=25, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')

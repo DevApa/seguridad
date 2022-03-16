@@ -1,13 +1,17 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
+import inventory.views.subitemdet.views
 from inventory.views.frecuencia.views import *
 from inventory.views.generacion.views import *
 from inventory.views.item.views import *
 from inventory.views.marca.views import *
 from inventory.views.modelo.views import *
+from inventory.views.subitem.views import *
 from inventory.views.tipo.views import *
 from inventory.views.ubicacion.views import *
+from inventory.views.subitemdet.views import *
+from inventory.views.subitemcap.views import *
 
 app_name = 'inv'
 
@@ -46,5 +50,22 @@ urlpatterns = [
     url(r'^modelo/crear', login_required(EModelCreateView.as_view()), name='create-model'),
     url(r'^modelo/editar/(?P<pk>\d+)/$', login_required(EModelUpdateView.as_view()), name='update-model'),
     url(r'^modelo/eliminar/(?P<pk>\d+)/$', login_required(EModelDeleteView.as_view()), name='delete-model'),
+
+    url(r'^rubro/lista', login_required(HeadingListView.as_view()), name='list-subitem'),
+    url(r'^rubro/crear', login_required(HeadingCreateView.as_view()), name='create-subitem'),
+    #url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
+    #url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+
+    url(r'^rubro_detalle/lista', login_required(HeadingDetailListView.as_view()), name='list-subitem-det'),
+    url(r'^rubro_detalle/crear', login_required(HeadingDetailCreateView.as_view()), name='create-subitem-det'),
+    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
+    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+
+    url(r'^rubro_capacidad/lista', login_required(HeadingCapacityListView.as_view()), name='list-subitem-cap'),
+    url(r'^rubro_capacidad/crear', login_required(HeadingCapacityCreateView.as_view()), name='create-subitem-cap'),
+    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
+    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+
+
 ]
 

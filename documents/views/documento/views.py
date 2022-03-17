@@ -17,7 +17,6 @@ class DocumentListView(ListView):
         context['heading'] = 'Matenimiento Documento'
         context['pageview'] = 'Documento'
         context['object_list'] = Document.objects.filter(state=True)
-        context['action'] = 'add'
         context['create_url'] = reverse_lazy('docs:create-doc')
         context['url_list'] = reverse_lazy('docs:list-doc')
         return context
@@ -33,17 +32,16 @@ class DocumentCreateView(CreateView):
         data = {}
         try:
             if request.is_ajax():
-                option = request.POST['action']
-                form = self.get_form()
-                if option == 'add':
+                form = self.form_class(request.POST)
+                if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} registrada correctamente'
+                    message = f'Documento registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Documento no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -55,7 +53,6 @@ class DocumentCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Creación de Documento'
-        context['action'] = 'add'
         context['list_url'] = reverse_lazy('docs:list-doc')
         return context
 
@@ -73,13 +70,13 @@ class DocumentUpdateView(UpdateView):
                 form = self.form_class(request.POST, instance=self.get_object())
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} actualizado correctamente'
+                    message = f'Documento actualizado correctamente'
                     error = 'No hay error'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo actualizar!'
+                    message = f'Documento no se pudo actualizar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -105,7 +102,7 @@ class DocumentDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'{self.model.__name__} eliminada correctamente!'
+            message = f'Documento eliminada correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

@@ -74,14 +74,15 @@ class SchoolOfForm(ModelForm):
 class AcademicUnitForm(ModelForm):
     class Meta:
         model = AcademicUnit
-        fields = ['schoolOf', 'name', 'address', 'phone', 'director', 'foundation_date']
+        fields = ['schoolOf', 'name', 'address', 'phone', 'director', 'foundation_date', 'date_input']
         labels = {
             'schoolOf': 'Facultad',
-            'name': 'Nombre:',
-            'address': 'Dirección:',
-            'phone': 'Teléfono:',
+            'name': 'Nombre',
+            'address': 'Dirección',
+            'phone': 'Teléfono',
             'director': 'Director',
-            'foundation_date': 'Fecha fundación'
+            'foundation_date': 'Fecha Fundación',
+            'date_input': 'Hora ingreso',
         }
         widgets = {
             'schoolOf': Select(attrs={'class': 'form-control'}),
@@ -97,6 +98,7 @@ class AcademicUnitForm(ModelForm):
             'director': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Director de la institución'}),
             'foundation_date': DateInput(attrs={'class': 'form-control', 'type': 'date'}
                                          , format='%Y-%m-%d'),
+            'date_input': TextInput(attrs={'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -114,27 +116,30 @@ class DepartmentForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['foundation_date'].input_formats = ['%Y-%m-%d']
         self.fields['academic_unit'].empty_label = 'Seleccione una Departamento'
+        self.fields['boss'].empty_label = 'Seleccione una Jefe de departamento'
         self.fields['academic_unit'].widget.attrs['autofocus'] = True
 
     class Meta:
         model = Department
-        fields = ['name', 'phone', 'boss', 'foundation_date', 'academic_unit']
+        fields = ['academic_unit', 'name', 'phone', 'boss', 'foundation_date', 'date_input']
 
         labels = {
             'academic_unit': 'Unidad Académica',
             'name': 'Nombre',
             'phone': 'Teléfono',
             'boss': 'Jefe',
-            'foundation_date': 'Fecha Fundación'
+            'foundation_date': 'Fecha Fundación',
+            'date_input': 'Hora entrada',
         }
 
         widgets = {
             'academic_unit': Select(attrs={'class': 'form-control'}),
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de la Departamento'}),
             'phone': TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese el teléfono '}),
-            'boss': TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese jefe de área'}),
+            'boss': Select(attrs={'class': 'form-control'}),
             'foundation_date': DateInput(attrs={'class': 'form-control', 'type': 'date'}
-                                         , format='%Y-%m-%d')
+                                         , format='%Y-%m-%d'),
+            'date_input': TextInput(attrs={'class': 'form-control'}),
         }
 
     def save(self, commit=True):

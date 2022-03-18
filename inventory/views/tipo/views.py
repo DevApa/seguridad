@@ -1,13 +1,13 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from inventory.models import Tipo
+from inventory.models import Type
 from inventory.forms import TypeForm
 from django.http import JsonResponse
 
 
 class TypeListView(ListView):
-    model = Tipo
+    model = Type
     template_name = 'tipo/list.html'
     success_url = reverse_lazy('inv:list-type')
 
@@ -15,14 +15,14 @@ class TypeListView(ListView):
         context = super().get_context_data(**kwargs)
         context['heading'] = 'Matenimiento Tipos'
         context['pageview'] = 'Tipo'
-        context['object_list'] = Tipo.objects.filter(state=True)
+        context['object_list'] = Type.objects.filter(state=True)
         context['create_url'] = reverse_lazy('inv:create-type')
         context['url_list'] = reverse_lazy('inv:list-type')
         return context
 
 
 class TypeCreateView(CreateView):
-    model = Tipo
+    model = Type
     form_class = TypeForm
     template_name = "tipo/create.html"
     success_url = reverse_lazy('inv:list-type')
@@ -58,7 +58,7 @@ class TypeCreateView(CreateView):
     
 
 class TypeUpdateView(UpdateView):
-    model = Tipo
+    model = Type
     form_class = TypeForm
     template_name = "tipo/update.html"
     success_url = reverse_lazy('inv:list-type')
@@ -94,7 +94,7 @@ class TypeUpdateView(UpdateView):
 
 
 class TypeDeleteView(DeleteView):
-    model = Tipo
+    model = Type
     success_url = reverse_lazy('inv:list-type')
 
     def delete(self, request, *args, **kwargs):

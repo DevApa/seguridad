@@ -45,7 +45,7 @@ class Brand(models.Model):
     user_modify = models.CharField(max_length=25, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
     date_update = models.DateTimeField(auto_now=True, db_column='fecha_edicion')
-    state = models.BooleanField(default=False, db_column='estado')
+    state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
         return self.name

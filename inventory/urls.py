@@ -7,6 +7,9 @@ from inventory.views.item.views import *
 from inventory.views.marca.views import *
 from inventory.views.modelo.views import *
 from inventory.views.software.views import *
+from inventory.views.subitem.views import *
+from inventory.views.subitemcap.views import *
+from inventory.views.subitemdet.views import *
 from inventory.views.tipo.views import *
 from inventory.views.ubicacion.views import *
 
@@ -52,5 +55,20 @@ urlpatterns = [
     url(r'^software/crear', login_required(SoftwareCreateView.as_view()), name='create-soft'),
     url(r'^software/editar/(?P<pk>\d+)/$', login_required(SoftwareUpdateView.as_view()), name='update-soft'),
     url(r'^software/eliminar/(?P<pk>\d+)/$', login_required(SoftwareDeleteView.as_view()), name='delete-soft'),
+
+    url(r'^rubro/lista', login_required(HeadingListView.as_view()), name='list-sub-item'),
+    url(r'^rubro/crear', login_required(HeadingCreateView.as_view()), name='create-sub-item'),
+    url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-sub-item'),
+    url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-sub-item'),
+
+    url(r'^rubro_detalle/lista', login_required(HeadingDetailListView.as_view()), name='list-sub-item-det'),
+    url(r'^rubro_detalle/crear', login_required(HeadingDetailCreateView.as_view()), name='create-sub-item-det'),
+    url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-sub-item-det'),
+    url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-sub-item-det'),
+
+    url(r'^rubro_capacidad/lista', login_required(HeadingCapacityListView.as_view()), name='list-sub-item-cap'),
+    url(r'^rubro_capacidad/crear', login_required(HeadingCapacityCreateView.as_view()), name='create-sub-item-cap'),
+    url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-sub-item-cap'),
+    url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-sub-item-cap'),
 ]
 

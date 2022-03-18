@@ -82,12 +82,12 @@ class Tipo(models.Model):
 
 
 class Item(models.Model):
-    name = models.CharField(db_column='nombre', max_length=100)
-    description = models.CharField(db_column='description', max_length=1000)
+    name = models.CharField(db_column='nombre', max_length=100, null=True, blank=True)
+    description = models.CharField(db_column='description', max_length=1000, null=False, blank=False, unique=True)
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
-        return self.name
+        return self.description
 
     class Meta:
         db_table = 'inv_item'
@@ -119,57 +119,79 @@ class Software(models.Model):
         db_table = 'inv_software'
 
 
+class ItemAssignmentHeader(models.Model):
+    employee = models.ForeignKey(Usuario, db_column='empleado', on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, db_column='ubicacion', on_delete=models.CASCADE)
+    name_equipment = models.TextField(max_length=1000, db_column='nombre_equipo')
+    user_create = models.CharField(max_length=25, db_column='usuario_registra')
+    user_update = models.CharField(max_length=25, db_column='usuario_modifica')
+    date = models.DateField(db_column='fecha')
+    date_updated = models.DateTimeField(auto_now_add=True, db_column='fecha_modificacion')
+    state = models.BooleanField(default=True, db_column='estado')
+
+    def __str__(self):
+        return self.employee.full_name()
+
+    class Meta:
+        db_table = 'inv_item_asignacion_cabecera'
+
+
+class SoftwareDetail(models.Model):
+    head = models.ForeignKey(ItemAssignmentHeader, db_column='id_cab_asignacion', on_delete=models.CASCADE)
+    software = models.ForeignKey(Software, db_column='id_software', on_delete=models.CASCADE)
+    user_create = models.CharField(max_length=25, db_column='usuario_registra')
+    user_update = models.CharField(max_length=25, db_column='usuario_modifica')
+    date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
+    date_updated = models.DateTimeField(auto_now_add=True, db_column='fecha_modificacion')
+    state = models.BooleanField(default=True, db_column='estado')
+
+    class Meta:
+        db_table = 'inv_soft_asignacion_detalle'
+
+
 class Heading(models.Model):
     item = models.ForeignKey(Item, db_column='id_item', on_delete=models.CASCADE)
-    name = models.TextField(db_column='nombre', max_length=100)
+    name = models.TextField(db_column='nombre', max_length=100, null=True, blank=True)
     description = models.TextField(db_column='description', max_length=1000)
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
-        return self.name
+        return self.description
 
     class Meta:
         db_table = 'inv_rubro'
 
 
-class HeadingDetailTecnology(models.Model):
-    heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE)
-    name = models.TextField(db_column='nombre', max_length=100)
-    description = models.TextField(db_column='description', max_length=1000)
-    state = models.BooleanField(default=True, db_column='estado')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'inv_rubro_detalle_tecnologia'
-
-
-class HeadingFeatures(models.Model):
-    heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE)
-    name = models.TextField(db_column='nombre', max_length=100)
-    value = models.CharField(db_column='valor', max_length=1000)
-    state = models.BooleanField(default=True, db_column='estado')
-
-    def __str__(self):
-        return self.heading
-
-    class Meta:
-        db_table = 'inv_rubro_caracteristicas'
-
-
-class ItemAssignmentHeader(models.Model):
-    employee = models.ForeignKey(Usuario, db_column='empleado', on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, db_column='ubicacion', on_delete=models.CASCADE)
-    name_equipment = models.TextField(max_length=1000, db_column='nombre_equipo')
-    state = models.BooleanField(default=True, db_column='estado')
+class HeadingDetail(models.Model):
+    heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE, verbose_name="Rubro")
+    description = models.CharField(db_column='description', max_length=1000)
+    user_create = models.CharField(max_length=25, db_column='usuario_registra')
+    user_update = models.CharField(max_length=25, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
+    date_updated = models.DateTimeField(auto_now_add=True, db_column='fecha_modificacion')
+    state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
-        return self.employee.nombres
+        return self.description
 
     class Meta:
-        db_table = 'inv_item_asignacion_cabecera'
+        db_table = 'inv_rubro_detalle'
+
+
+class HeadingCapacity(models.Model):
+    heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE, verbose_name="Rubro")
+    value = models.CharField(db_column='valor', max_length=1000, verbose_name="Descripcion")
+    user_create = models.CharField(max_length=25, db_column='usuario_registra')
+    user_update = models.CharField(max_length=25, db_column='usuario_modifica')
+    date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
+    date_updated = models.DateTimeField(auto_now_add=True, db_column='fecha_modificacion')
+    state = models.BooleanField(default=True, db_column='estado')
+
+    def __str__(self):
+        return self.value
+
+    class Meta:
+        db_table = 'inv_rubro_capacidad'
 
 
 class ItemAssignSoftwareDetail(models.Model):
@@ -189,6 +211,8 @@ class ItemAssigmentHardwareDetail(models.Model):
     brand = models.ForeignKey(Brand, db_column='id_marca', null=True, on_delete=models.SET_NULL)
     model = models.ForeignKey(EModel, db_column='id_modelo', null=True, on_delete=models.SET_NULL)
     heading = models.ForeignKey(Heading, db_column='id_rubro', null=True, on_delete=models.SET_NULL)
+    heading_detail = models.ForeignKey(HeadingDetail, db_column='id_rubro_detalle', null=True, on_delete=models.SET_NULL)
+    heading_capacity = models.ForeignKey(HeadingCapacity, db_column='id_rubro_capacidad', null=True, on_delete=models.SET_NULL)
     frequency = models.ForeignKey(Frequency, db_column='id_frecuencia', null=True, on_delete=models.SET_NULL)
     generation = models.ForeignKey(Generation, db_column='id_generacion', null=True, on_delete=models.SET_NULL)
     code_inventory = models.TextField(max_length=25, db_column='codigo_inventario')

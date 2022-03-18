@@ -12,7 +12,8 @@
 {% block cols %}
     <th>N°</th>
     <th>Nombre</th>
-    <th>Descripción</th>
+    <th>Direccion</th>
+    <th>rector</th>
     <th>Estado</th>
     <th>Acción</th>
 {% endblock %}
@@ -23,6 +24,7 @@
             <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.address }}</td>
+            <td>{{ item.rector }}</td>
             <td>
                 {% if item.state %}
                     <span class="badge rounded-pill bg-success" key="t-new">Activo</span>

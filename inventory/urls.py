@@ -12,8 +12,9 @@ from inventory.views.ubicacion.views import *
 from inventory.views.subitemdet.views import *
 from inventory.views.subitemcap.views import *
 from inventory.views.software.views import *
-
-app_name = 'inv'
+from inventory.views.asignacioncabecera.views import *
+from inventory.views.asignaciondethw.views import *
+from inventory.views.asignaciondetsw.views import *
 
 urlpatterns = [
     url(r'^marca/lista', login_required(BrandListView.as_view()), name='list-brand'),
@@ -58,8 +59,8 @@ urlpatterns = [
 
     url(r'^rubro/lista', login_required(HeadingListView.as_view()), name='list-subitem'),
     url(r'^rubro/crear', login_required(HeadingCreateView.as_view()), name='create-subitem'),
-    #url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
-    #url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+    url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
+    url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
 
     url(r'^rubro_detalle/lista', login_required(HeadingDetailListView.as_view()), name='list-subitem-det'),
     url(r'^rubro_detalle/crear', login_required(HeadingDetailCreateView.as_view()), name='create-subitem-det'),
@@ -71,6 +72,24 @@ urlpatterns = [
     # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
     # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
 
+    url(r'^asignacion_cabecera/lista', login_required(ItemAssignmentHeaderListView.as_view()), name='list-assignment-cap'),
+    url(r'^asignacion_cabecera/crear', login_required(ItemAssignmentHeaderCreateView.as_view()), name='create-assignment-cap'),
+    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
+    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+
+    url(r'^asignacion_hardware/lista', login_required(ItemAssigmentHardwareDetailListView.as_view()), name='list-assignment-hw'),
+    url(r'^asignacion_hardware/crear', login_required(ItemAssigmentHardwareDetailCreateView.as_view()), name='create-assignment-hw'),
+    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
+    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+
+    url(r'^asignacion_software/lista', login_required(SoftwareDetailListView.as_view()), name='list-assignment-sw'),
+    url(r'^asignacion_software/crear', login_required(SoftwareDetailCreateView.as_view()), name='create-assignment-sw'),
+    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
+    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+
 
 ]
+
+app_name = 'inv'
+
 

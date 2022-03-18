@@ -64,7 +64,7 @@ class AcademicUnit(models.Model):
 class Department(models.Model):
     name = models.CharField(max_length=50, db_column='nombre')
     phone = models.TextField(max_length=30, null=True, db_column='telefono')
-    boss = models.ForeignKey(Usuario, db_column='jefe', on_delete=models.CASCADE)
+    boss = models.ForeignKey(Usuario, db_column='jefe', null='True', blank='True', on_delete=models.SET_NULL)
     foundation_date = models.DateField(db_column='fecha_fundacion')
     academic_unit = models.ForeignKey(AcademicUnit, db_column='unidad_academica', on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')

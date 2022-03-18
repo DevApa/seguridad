@@ -11,9 +11,11 @@
 <!--Columnas de la tabla-->
 {% block cols %}
     <th>N°</th>
+    <th>Universidad</th>
     <th>Nombre</th>
-    <th>Jefe</th>
-    <th>Unidad Académica</th>
+    <th>Direccion</th>
+    <th>Decano</th>
+    <th>Estado</th>
     <th>Acción</th>
 {% endblock %}
 <!--Filas de la tabla-->
@@ -21,9 +23,15 @@
     {% for item in object_list %}
         <tr>
             <td>{{ item.id }}</td>
+            <td>{{ item.university }}</td>
             <td>{{ item.name }}</td>
-            <td>{{ item.boss }}</td>
-            <td>{{ item.academic_unit }}</td>
+            <td>{{ item.address }}</td>
+            <td>{{ item.dean }}</td>
+            <td>
+                {% if item.state %}
+                    <span class="badge rounded-pill bg-success" key="t-new">Activo</span>
+                {% endif %}
+            </td>
             <td>
                 <button onclick="openModal('{% url 'org:fac-update' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
                     <i class="fas fa-pencil-alt"></i>

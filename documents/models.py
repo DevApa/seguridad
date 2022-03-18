@@ -2,8 +2,8 @@ from django.db import models
 
 
 class DocumentType(models.Model):
-    name = models.CharField(max_length=100, db_column='nombre')
-    description = models.CharField(max_length=100, db_column='descripcion')
+    name = models.CharField(max_length=100, db_column='nombre', unique=True, null=False, blank=False)
+    description = models.CharField(max_length=100, db_column='descripcion', null=True, blank=True,)
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
@@ -14,8 +14,8 @@ class DocumentType(models.Model):
 
 
 class Area(models.Model):
-    name = models.CharField(max_length=100, db_column='nombre')
-    description = models.CharField(max_length=100, db_column='descripcion')
+    name = models.CharField(max_length=100, db_column='nombre', unique=True, null=False, blank=False)
+    description = models.CharField(max_length=100, db_column='descripcion', null=True, blank=True,)
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
@@ -26,8 +26,8 @@ class Area(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, db_column='nombre')
-    description = models.CharField(max_length=100, db_column='descripcion')
+    name = models.CharField(max_length=100, db_column='nombre', unique=True, null=False, blank=False)
+    description = models.CharField(max_length=100, db_column='descripcion', null=True, blank=True,)
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
@@ -38,8 +38,8 @@ class Category(models.Model):
 
 
 class LevelAccess(models.Model):
-    name = models.CharField(max_length=100, db_column='nombre')
-    description = models.CharField(max_length=100, db_column='descripcion')
+    name = models.CharField(max_length=100, db_column='nombre', unique=True, null=False, blank=False)
+    description = models.CharField(max_length=100, db_column='descripcion', null=True, blank=True,)
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
@@ -50,8 +50,8 @@ class LevelAccess(models.Model):
 
 
 class Document(models.Model):
-    name = models.CharField(max_length=100, db_column='nombre')
-    description = models.CharField(max_length=100, db_column='descripcion')
+    name = models.CharField(max_length=100, db_column='nombre', unique=True, null=False, blank=False)
+    description = models.CharField(max_length=100, db_column='descripcion', null=True, blank=True,)
     electronicSignature = models.BooleanField(default=True, db_column='firma_electronica')
     manualSignature = models.BooleanField(default=True, db_column='firma_manual')
     create_date = models.DateTimeField(auto_now=True, db_column='fecha_creacion')

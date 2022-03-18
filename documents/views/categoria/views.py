@@ -33,17 +33,16 @@ class CategoryCreateView(CreateView):
         data = {}
         try:
             if request.is_ajax():
-                option = request.POST['action']
-                form = self.get_form()
-                if option == 'add':
+                form = self.form_class(request.POST)
+                if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} registrada correctamente'
+                    message = f'Categoría registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Categoría no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -73,13 +72,13 @@ class CategoryUpdateView(UpdateView):
                 form = self.form_class(request.POST, instance=self.get_object())
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} actualizado correctamente'
+                    message = f'Categoría actualizado correctamente'
                     error = 'No hay error'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo actualizar!'
+                    message = f'Categoría no se pudo actualizar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -105,7 +104,7 @@ class CategoryDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'{self.model.__name__} eliminada correctamente!'
+            message = f'Categoría eliminada correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

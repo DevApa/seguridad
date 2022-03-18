@@ -32,14 +32,14 @@ class TypeForm(ModelForm):
 class FrequencyForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs['autofocus'] = True
+        self.fields['description'].widget.attrs['autofocus'] = True
 
     class Meta:
         model = Frequency
-        fields = '__all__'
-
+        fields = {'description'}
+        labels = {'description' : 'Descripcion' }
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el frecuencia'}),
+            #'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el frecuencia'}),
             'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
         }
 
@@ -145,14 +145,15 @@ class EModelForm(ModelForm):
 class LocationForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs['autofocus'] = True
+        self.fields['departament'].widget.attrs['autofocus'] = True
+        self.fields['departament'].empty_label = 'Seleccione un departamento...!'
 
     class Meta:
         model = Location
-        fields = ['name', 'description']
-
+        fields = ['departament', 'description']
+        labels = {'departament':'Departamento', 'description':'Descripcion'}
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí la ubicación'}),
+            'departament': Select(attrs={'class': 'form-control select2'}),
             'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
         }
 
@@ -199,20 +200,18 @@ class GenerationForm(ModelForm):
 class SoftwareForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['code'].widget.attrs['autofocus'] = True
+        self.fields['description'].widget.attrs['autofocus'] = True
 
     class Meta:
         model = Software
-        fields = ['code', 'description', 'version']
+        fields = [ 'description', 'version']
 
         labels = {
-            'code': 'Código',
             'description': 'Descripción',
             'version': 'Versión'
         }
 
         widgets = {
-            'code': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el software'}),
             'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Defina aquí el software'}),
             'version': TextInput(attrs={'class': 'form-control', 'placeholder': 'Versión del software'}),
         }

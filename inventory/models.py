@@ -11,7 +11,7 @@ class Frequency(models.Model):
     user_modify = models.CharField(max_length=25, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
     date_update = models.DateTimeField(auto_now=True, db_column='fecha_edicion')
-    state = models.BooleanField(default=False, db_column='estado')
+    state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
         txt = "{0} "
@@ -140,12 +140,11 @@ class Item(models.Model):
 
 
 class Software(models.Model):
-    code = models.TextField(db_column='codigo', max_length=6)
+    code = models.TextField(db_column='codigo', null=True, max_length=6)
     description = models.TextField(db_column='description', max_length=1000)
-    type = models.ForeignKey(Type, db_column='id_tipo', on_delete=models.CASCADE)
     version = models.TextField(db_column='version', max_length=100)
-    user_create = models.CharField(max_length=25, db_column='usuario_registra')
-    user_update = models.CharField(max_length=25, db_column='usuario_modifica')
+    user_create = models.CharField(max_length=25, null='True', db_column='usuario_registra')
+    user_update = models.CharField(max_length=25, null='True', db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
     date_update = models.DateTimeField(auto_now=True, db_column='fecha_edicion')
     state = models.BooleanField(default=True, db_column='estado')

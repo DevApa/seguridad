@@ -11,7 +11,7 @@
 <!--Columnas de la tabla-->
 {% block cols %}
     <th>N°</th>
-    <th>Nombre</th>
+    <th>Departamento</th>
     <th>Descripción</th>
     <th>Estado</th>
     <th>Acción</th>
@@ -21,7 +21,7 @@
     {% for item in object_list %}
         <tr>
             <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
+            <td>{{ item.departament }}</td>
             <td>{{ item.description }}</td>
             <td>
                 {% if item.state %}

@@ -64,28 +64,28 @@ urlpatterns = [
 
     url(r'^rubro_detalle/lista', login_required(HeadingDetailListView.as_view()), name='list-subitem-det'),
     url(r'^rubro_detalle/crear', login_required(HeadingDetailCreateView.as_view()), name='create-subitem-det'),
-    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
-    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+    url(r'^rubro_detalle/editar/(?P<pk>\d+)/$', login_required(HeadingDetailUpdateView.as_view()), name='update-subitem-det'),
+    url(r'^rubro_detalle/eliminar/(?P<pk>\d+)/$', login_required(HeadingDetailDeleteView.as_view()), name='delete-subitem-det'),
 
     url(r'^rubro_capacidad/lista', login_required(HeadingCapacityListView.as_view()), name='list-subitem-cap'),
     url(r'^rubro_capacidad/crear', login_required(HeadingCapacityCreateView.as_view()), name='create-subitem-cap'),
-    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
-    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+    url(r'^rubro_capacidad/editar/(?P<pk>\d+)/$', login_required(HeadingCapacityUpdateView.as_view()), name='update-subitem-cap'),
+    url(r'^rubro_capacidad/eliminar/(?P<pk>\d+)/$', login_required(HeadingCapacityDeleteView.as_view()), name='delete-subitem-cap'),
 
     url(r'^asignacion_cabecera/lista', login_required(ItemAssignmentHeaderListView.as_view()), name='list-assignment-cap'),
     url(r'^asignacion_cabecera/crear', login_required(ItemAssignmentHeaderCreateView.as_view()), name='create-assignment-cap'),
-    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
-    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+    url(r'^asignacion_cabecera/editar/(?P<pk>\d+)/$', login_required(ItemAssignmentHeaderUpdateView.as_view()), name='update-assignment-cap'),
+    url(r'^asignacion_cabecera/eliminar/(?P<pk>\d+)/$', login_required(ItemAssignmentHeaderDeleteView.as_view()), name='delete-assignment-cap'),
 
     url(r'^asignacion_hardware/lista', login_required(ItemAssigmentHardwareDetailListView.as_view()), name='list-assignment-hw'),
     url(r'^asignacion_hardware/crear', login_required(ItemAssigmentHardwareDetailCreateView.as_view()), name='create-assignment-hw'),
-    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
-    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+    url(r'^asignacion_hardware/editar/(?P<pk>\d+)/$', login_required(ItemAssigmentHardwareDetailUpdateView.as_view()), name='update-assignment-hw'),
+    url(r'^asignacion_hardware/eliminar/(?P<pk>\d+)/$', login_required(ItemAssigmentHardwareDetailDeleteView.as_view()), name='delete-assignment-hw'),
 
     url(r'^asignacion_software/lista', login_required(SoftwareDetailListView.as_view()), name='list-assignment-sw'),
     url(r'^asignacion_software/crear', login_required(SoftwareDetailCreateView.as_view()), name='create-assignment-sw'),
-    # url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-subitem'),
-    # url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-subitem'),
+    url(r'^asignacion_software/editar/(?P<pk>\d+)/$', login_required(SoftwareDetailUpdateView.as_view()), name='update-assignment-sw'),
+    url(r'^asignacion_software/eliminar/(?P<pk>\d+)/$', login_required(SoftwareDetailDeleteView.as_view()), name='delete-assignment-sw'),
 
 
 ]

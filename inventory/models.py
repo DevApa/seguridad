@@ -5,10 +5,10 @@ from organization.models import Department
 
 
 class Frequency(models.Model):
-    name = models.CharField(max_length=100, unique=True, db_column='nombre')
+    name = models.CharField(max_length=100, unique=True, null=True,  db_column='nombre')
     description = models.CharField(max_length=100, unique=True, db_column='descripcion')
-    user_create = models.CharField(max_length=25, db_column='usuario_registra')
-    user_modify = models.CharField(max_length=25, db_column='usuario_modifica')
+    user_create = models.CharField(max_length=25, null=True, db_column='usuario_registra')
+    user_modify = models.CharField(max_length=25, null=True, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
     date_update = models.DateTimeField(auto_now=True, db_column='fecha_edicion')
     state = models.BooleanField(default=True, db_column='estado')
@@ -56,10 +56,10 @@ class Brand(models.Model):
 
 
 class EModel(models.Model):
-    name = models.CharField(max_length=100, null=False, blank=False, unique=True, db_column='nombre')
+    name = models.CharField(max_length=100, null=True, db_column='nombre')
     description = models.CharField(max_length=1000, null=False, blank=False, unique=True, db_column='Descripcion')
-    user_create = models.CharField(max_length=25, db_column='usuario_registra')
-    user_modify = models.CharField(max_length=25, db_column='usuario_modifica')
+    user_create = models.CharField(max_length=25, null=True, db_column='usuario_registra')
+    user_modify = models.CharField(max_length=25, null=True, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
     date_update = models.DateTimeField(auto_now=True, db_column='fecha_edicion')
     state = models.BooleanField(default=True, db_column='estado')
@@ -157,7 +157,7 @@ class Software(models.Model):
 
 
 class Heading(models.Model):
-    item = models.ForeignKey('Item', db_column='id_item', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, db_column='id_item', on_delete=models.CASCADE)
     code = models.TextField(db_column='codigo', max_length=9)
     description = models.TextField(db_column='description', max_length=1000)
     user_create = models.CharField(max_length=25, db_column='usuario_registra')

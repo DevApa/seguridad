@@ -374,15 +374,25 @@ class ItemAssigmentHardwareDetailForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['head'].widget.attrs['autofocus'] = True
         self.fields['head'].empty_label = 'Seleccione un Equipo...!'
+        self.fields['head'].queryset = ItemAssignmentHeader.objects.filter(state=True)
         self.fields['type'].empty_label = 'Seleccione un Tipo...!'
+        self.fields['type'].queryset = Type.objects.filter(state=True)
         self.fields['item'].empty_label = 'Seleccione un Item...!'
+        self.fields['item'].queryset = Item.objects.filter(state=True)
         self.fields['brand'].empty_label = 'Seleccione una Marca...!'
+        self.fields['brand'].queryset = Brand.objects.filter(state=True)
         self.fields['model'].empty_label = 'Seleccione una Modelo...!'
+        self.fields['model'].queryset = EModel.objects.filter(state=True)
         self.fields['heading'].empty_label = 'Seleccione una Caracteristica...!'
+        self.fields['heading'].queryset = Heading.objects.filter(state=True)
         self.fields['heading_detail'].empty_label = 'Seleccione una Tecnologia...!'
+        self.fields['heading_detail'].queryset = HeadingDetail.objects.filter(state=True)
         self.fields['frequency'].empty_label = 'Seleccione una Frecuencia...!'
+        self.fields['frequency'].queryset = Frequency.objects.filter(state=True)
         self.fields['heading_capacity'].empty_label = 'Seleccione una Capacidad...!'
+        self.fields['heading_capacity'].queryset = HeadingCapacity.objects.filter(state=True)
         self.fields['generation'].empty_label = 'Seleccione una Generacion...!'
+        self.fields['generation'].queryset = Generation.objects.filter(state=True)
 
     class Meta:
         model = ItemAssigmentHardwareDetail

@@ -1,0 +1,91 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">{{ title }}</h2>
+      </div>
+
+       <form id="{% block id_form %}{% endblock %}" action="{% block action %}{% endblock %}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="option" value="false">
+            <input type="hidden" name="action" value="{{ action }}">
+          {% csrf_token %}
+          <div id="{% block id_error %}{% endblock %}"></div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-6">
+                      <label for="id_head">Equipo</label>
+                      {{ form.head }}
+                  </div>
+                  <div class="col-6">
+                      <label for="id_item">Item</label>
+                      {{ form.item }}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <label for="id_type">Tipo</label>
+                      {{ form.type }}
+                  </div>
+                  <div class="col-6">
+                      <label for="id_brand">Marca</label>
+                      {{ form.brand }}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <label for="id_model">Modelo</label>
+                      {{ form.model }}
+                  </div>
+                  <div class="col-6">
+                      <label for="id_heading">Rubro</label>
+                      {{ form.heading }}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <label for="id_heading_detail">Tecnologia</label>
+                      {{ form.heading_detail }}
+                  </div>
+                  <div class="col-6">
+                      <label for="id_frequency">Frecuencia</label>
+                      {{ form.frequency }}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <label for="id_heading_capacity">Capacidad</label>
+                      {{ form.heading_capacity }}
+                  </div>
+                  <div class="col-6">
+                      <label for="id_generation">Generacion</label>
+                      {{ form.generation }}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <label for="id_code_inventory">Codigo Inventario</label>
+                      {{ form.code_inventory }}
+                  </div>
+                  <div class="col-6">
+                      <label for="id_num_serial">Numero de Serie</label>
+                      {{ form.num_serial }}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <label for="id_quantity">Cantidad</label>
+                      {{ form.quantity }}
+                  </div>
+                  <div class="col-6">
+                      <label for="id_observation">Observacion</label>
+                      {{ form.observation }}
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            {% block btn %}
+
+            {% endblock %}
+          </div>
+        </form>
+    </div>
+</div>

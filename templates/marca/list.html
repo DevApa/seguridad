@@ -9,8 +9,6 @@
 <!--Columnas de la tabla-->
 {% block cols %}
     <th>N°</th>
-    <th>Código</th>
-    <th>Nombre</th>
     <th>Descripción</th>
     <th>Estado</th>
     <th>Acción</th>
@@ -20,14 +18,10 @@
     {% for item in object_list %}
         <tr>
             <td>{{ item.id }}</td>
-            <td>{{ item.code }}</td>
-            <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
             <td>
                 {% if item.state %}
-                    <span class="rounded-circle btn btn-outline-success btn-sm "><i class="bx bx-check-circle" ></i></span>
-                {%else %}
-                    <span class="rounded-circle btn btn-outline-danger btn-sm"><i class="far fa-times-circle" ></i></span>
+                    <span class="badge rounded-pill bg-success" key="t-new">Activo</span>
                 {% endif %}
             </td>
             <td>

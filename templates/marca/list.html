@@ -1,4 +1,4 @@
-{% extends 'parciales/list.html' %}
+{% extends 'parciales/list_buttons.html' %}
 {% block btn_creacion %}
     <div class="mb-2">
         <button class="rounded-circle btn btn-outline-info" type="button" onclick="openModal('{% url 'inv:create-brand' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
@@ -9,7 +9,6 @@
 <!--Columnas de la tabla-->
 {% block cols %}
     <th>N°</th>
-    <th>Código</th>
     <th>Nombre</th>
     <th>Descripción</th>
     <th>Estado</th>
@@ -20,7 +19,6 @@
     {% for item in object_list %}
         <tr>
             <td>{{ item.id }}</td>
-            <td>{{ item.code }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
             <td>

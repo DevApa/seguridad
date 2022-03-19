@@ -1,6 +1,9 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
+from inventory.views.asignacioncabecera.views import *
+from inventory.views.asignaciondethw.views import *
+from inventory.views.asignaciondetsw.views import *
 from inventory.views.frecuencia.views import *
 from inventory.views.generacion.views import *
 from inventory.views.item.views import *
@@ -26,10 +29,10 @@ urlpatterns = [
     url(r'^tipo/editar/(?P<pk>\d+)/$', login_required(TypeUpdateView.as_view()), name='update-type'),
     url(r'^tipo/eliminar/(?P<pk>\d+)/$', login_required(TypeDeleteView.as_view()), name='delete-type'),
 
-    url(r'^generacion/lista', login_required(GenerationListView.as_view()), name='list-generation'),
-    url(r'^generacion/crear', login_required(GenerationCreateView.as_view()), name='create-generation'),
-    url(r'^generacion/editar/(?P<pk>\d+)/$', login_required(GenerationUpdateView.as_view()), name='update-generation'),
-    url(r'^generacion/eliminar/(?P<pk>\d+)/$', login_required(GenerationDeleteView.as_view()), name='delete-generation'),
+    url(r'^generacion/lista', login_required(GenerationList.as_view()), name='list-generation'),
+    url(r'^generacion/crear', login_required(GenerationCreate.as_view()), name='create-generation'),
+    url(r'^generacion/editar/(?P<pk>\d+)/$', login_required(GenerationUpdate.as_view()), name='update-generation'),
+    url(r'^generacion/eliminar/(?P<pk>\d+)/$', login_required(GenerationDelete.as_view()), name='delete-generation'),
 
     url(r'^frecuencia/lista', login_required(FrequencyListView.as_view()), name='list-frequency'),
     url(r'^frecuencia/crear', login_required(FrequencyCreateView.as_view()), name='create-frequency'),
@@ -70,5 +73,20 @@ urlpatterns = [
     url(r'^rubro_capacidad/crear', login_required(HeadingCapacityCreateView.as_view()), name='create-sub-item-cap'),
     url(r'^rubro/editar/(?P<pk>\d+)/$', login_required(HeadingUpdateView.as_view()), name='update-sub-item-cap'),
     url(r'^rubro/eliminar/(?P<pk>\d+)/$', login_required(HeadingDeleteView.as_view()), name='delete-sub-item-cap'),
+
+    url(r'^asignar_cabecera/lista', login_required(IAHList.as_view()), name='list-assign-cap'),
+    url(r'^asignar_cabecera/crear', login_required(IAHCreate.as_view()), name='create-assign-cap'),
+    url(r'^asignar_cabecera/editar/(?P<pk>\d+)/$', login_required(IAHUpdate.as_view()), name='update-assign-cap'),
+    url(r'^asignar_cabecera/eliminar/(?P<pk>\d+)/$', login_required(IAHDelete.as_view()), name='delete-assign-cap'),
+
+    url(r'^asignar_hardware/lista', login_required(IAHDetail.as_view()), name='list-assign-hw'),
+    url(r'^asignar_hardware/crear', login_required(IAHDetailCreate.as_view()), name='create-assign-hw'),
+    url(r'^asignar_hardware/editar/(?P<pk>\d+)/$', login_required(IAHDetailUpdate.as_view()), name='update-assign-hw'),
+    url(r'^asignar_hardware/eliminar/(?P<pk>\d+)/$', login_required(IAHDetailDelete.as_view()), name='del-assign-hw'),
+
+    url(r'^asignar_software/lista', login_required(SoftDetList.as_view()), name='list-assign-sw'),
+    url(r'^asignar_software/crear', login_required(SoftDetCreate.as_view()), name='create-assign-sw'),
+    url(r'^asignar_software/editar/(?P<pk>\d+)/$', login_required(SoftDetUpdate.as_view()), name='update-assign-sw'),
+    url(r'^asignar_software/eliminar/(?P<pk>\d+)/$', login_required(SoftDetDelete.as_view()), name='delete-assign-sw'),
 ]
 

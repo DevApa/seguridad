@@ -1,32 +1,32 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from inventory.models import Generation
-from inventory.forms import GenerationForm
+from inventory.models import ItemAssigmentHardwareDetail, Heading
+from inventory.forms import ItemAssigmentHardwareDetailForm
 from django.http import JsonResponse
 
 
-class GenerationList(ListView):
-    model = Generation
-    template_name = 'generacion/list.html'
-    success_url = reverse_lazy('inv:list-generation')
+class IAHDetail(ListView):
+    model = ItemAssigmentHardwareDetail
+    template_name = 'asignaciondethw/list.html'
+    success_url = reverse_lazy('inv:list-assign-hw')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = 'Matenimiento Generacion'
-        context['pageview'] = 'Generacion'
-        context['object_list'] = Generation.objects.filter(state=True)
-        context['create_url'] = reverse_lazy('inv:create-generation')
-        context['url_list'] = reverse_lazy('inv:list-generation')
+        context['heading'] = 'Matenimiento Asignación Hardware'
+        context['pageview'] = 'Asignacion Hardware'
+        context['object_list'] = ItemAssigmentHardwareDetail.objects.filter(state=True)
+        context['create_url'] = reverse_lazy('inv:create-assign-hw')
+        context['url_list'] = reverse_lazy('inv:list-assign-hw')
         return context
 
 
-class GenerationCreate(CreateView):
-    model = Generation
-    form_class = GenerationForm
-    template_name = "generacion/create.html"
-    success_url = reverse_lazy('inv:list-generation')
-    
+class IAHDetailCreate(CreateView):
+    model = ItemAssigmentHardwareDetail
+    form_class = ItemAssigmentHardwareDetailForm
+    template_name = "asignaciondethw/create.html"
+    success_url = reverse_lazy('inv:list-assign-hw')
+
     def post(self, request, *args, **kwargs):
         data = {}
         try:
@@ -34,13 +34,13 @@ class GenerationCreate(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} registrada correctamente'
+                    message = f'Asignación Hardware registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Asignación Hardward no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -51,17 +51,17 @@ class GenerationCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación de Generacion'
+        context['title'] = 'Creación de Asignación Hardware'
         context['action'] = 'add'
-        context['list_url'] = reverse_lazy('inv:list-generation')
+        context['list_url'] = reverse_lazy('inv:list-assign-hw')
         return context
-    
 
-class GenerationUpdate(UpdateView):
-    model = Generation
-    form_class = GenerationForm
-    template_name = "generacion/update.html"
-    success_url = reverse_lazy('inv:list-generation')
+
+class IAHDetailUpdate(UpdateView):
+    model = ItemAssigmentHardwareDetail
+    form_class = ItemAssigmentHardwareDetailForm
+    template_name = "asignaciondethw/update.html"
+    success_url = reverse_lazy('inv:list-assign-hw')
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -70,7 +70,7 @@ class GenerationUpdate(UpdateView):
             form = self.form_class(request.POST, instance=self.get_object())
             if form.is_valid():
                 form.save()
-                message = f'{self.model.__name__} actualizado correctamente'
+                message = f'Asignación Hardware actualizado correctamente'
                 error = 'No hay error'
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 201
@@ -87,25 +87,25 @@ class GenerationUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Actualizar Generación'
+        context['title'] = 'Actualizar Asignación Hardware'
         context['action'] = 'edit'
-        context['list_url'] = reverse_lazy('inv:list-generation')
+        context['list_url'] = reverse_lazy('inv:list-assign-hw')
         return context
 
 
-class GenerationDelete(DeleteView):
-    model = Generation
-    success_url = reverse_lazy('inv:list-generation')
+class IAHDetailDelete(DeleteView):
+    model = ItemAssigmentHardwareDetail
+    success_url = reverse_lazy('inv:list-assign-hw')
 
     def delete(self, request, *args, **kwargs):
         if request.is_ajax():
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'{self.model.__name__} eliminada correctamente!'
+            message = f'Asignación Hardware eliminado correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201
             return response
         else:
-            return redirect('inv:list-generation')
+            return redirect('inv:list-assign-hw')

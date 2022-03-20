@@ -26,8 +26,8 @@ function activeButton(button) {
 
 function ajaxRequestDoc(form, error_tag, button) {
     activeButton(button);
-
-    let params = new FormData(this);
+    let token = $("[name='csrfmiddlewaretoken']").val();
+    let params = new FormData($('#form-id')[0]);
     let url = $('#' + form).attr('action');
 
     $.ajax({
@@ -42,7 +42,7 @@ function ajaxRequestDoc(form, error_tag, button) {
             $("#datatable").ajax.reload();
         },
         error:function(error){
-            notification('Oops...!', error.responseJSON.message, 'error');
+            notification('Oops...!', error.message, 'error');
             errorAlerts(error_tag, error);
             activeButton(button);
         }

@@ -16,6 +16,7 @@ class DocumentListView(ListView):
         context = super().get_context_data(**kwargs)
         context['heading'] = 'Matenimiento Documento'
         context['pageview'] = 'Documento'
+        context['action'] = 'add'
         context['object_list'] = Document.objects.filter(state=True)
         context['create_url'] = reverse_lazy('docs:create-doc')
         context['url_list'] = reverse_lazy('docs:list-doc')
@@ -32,7 +33,7 @@ class DocumentCreateView(CreateView):
         data = {}
         try:
             if request.is_ajax():
-                form = self.form_class(request.POST)
+                form = self.form_class(request.POST, request.FILES or None)
                 if form.is_valid():
                     form.save()
                     message = f'Documento registrada correctamente'
@@ -53,6 +54,7 @@ class DocumentCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Creación de Documento'
+        context['action'] = 'add'
         context['list_url'] = reverse_lazy('docs:list-doc')
         return context
 

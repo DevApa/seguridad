@@ -6,7 +6,7 @@ from inventory.forms import GenerationForm
 from django.http import JsonResponse
 
 
-class GenerationListView(ListView):
+class GenerationList(ListView):
     model = Generation
     template_name = 'generacion/list.html'
     success_url = reverse_lazy('inv:list-generation')
@@ -21,7 +21,7 @@ class GenerationListView(ListView):
         return context
 
 
-class GenerationCreateView(CreateView):
+class GenerationCreate(CreateView):
     model = Generation
     form_class = GenerationForm
     template_name = "generacion/create.html"
@@ -57,7 +57,7 @@ class GenerationCreateView(CreateView):
         return context
     
 
-class GenerationUpdateView(UpdateView):
+class GenerationUpdate(UpdateView):
     model = Generation
     form_class = GenerationForm
     template_name = "generacion/update.html"
@@ -93,7 +93,7 @@ class GenerationUpdateView(UpdateView):
         return context
 
 
-class GenerationDeleteView(DeleteView):
+class GenerationDelete(DeleteView):
     model = Generation
     success_url = reverse_lazy('inv:list-generation')
 

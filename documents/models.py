@@ -55,7 +55,7 @@ class Document(models.Model):
     electronicSignature = models.BooleanField(default=True, db_column='firma_electronica')
     manualSignature = models.BooleanField(default=True, db_column='firma_manual')
     create_date = models.DateTimeField(auto_now=True, db_column='fecha_creacion')
-    pathFile = models.FileField(upload_to='files/documents', max_length=10000, db_column='ruta_archivo')
+    pathFile = models.FileField(upload_to='files/documents', max_length=10000, db_column='ruta_archivo', null=True, blank=True)
     state = models.BooleanField(default=True, db_column='estado')
     category = models.ForeignKey(Category, db_column='id_categoria', on_delete=models.CASCADE)
     level_access = models.ForeignKey(LevelAccess, db_column='id_nivel_acceso', on_delete=models.CASCADE)

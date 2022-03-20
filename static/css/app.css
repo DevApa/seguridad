@@ -18,6 +18,9 @@ File: Main Css File
     -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
     box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
 }
+.center-text{
+    text-align: center;
+}
 
 .navbar-header {
     display: -webkit-box;
@@ -4987,4 +4990,8 @@ div.dataTables_wrapper div.dataTables_filter input {
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     margin: 0px auto;
+}
+
+.center-text{
+    text-align: center;
 }

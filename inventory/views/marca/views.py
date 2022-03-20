@@ -101,6 +101,7 @@ class BrandDeleteView(DeleteView):
         if request.is_ajax():
             obj = self.get_object()
             obj.state = False
+            obj.delete()
             obj.save()
             message = f'{self.model.__name__} eliminada correctamente!'
             errors = 'No se encontraron errores'

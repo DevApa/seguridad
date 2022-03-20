@@ -11,7 +11,7 @@ class Frequency(models.Model):
 
     def __str__(self):
         txt = "{0} "
-        return txt.format('Frecuencia')
+        return txt.format(self.description)
 
     def to_json(self):
         items = model_to_dict(self)

@@ -15,6 +15,8 @@ class IAHDetail(ListView):
         context = super().get_context_data(**kwargs)
         context['heading'] = 'Matenimiento Asignación Hardware'
         context['pageview'] = 'Asignacion Hardware'
+        cab_det = ItemAssigmentHardwareDetail.objects.filter(head__location=1)
+        print(cab_det)
         context['object_list'] = ItemAssigmentHardwareDetail.objects.filter(state=True)
         context['create_url'] = reverse_lazy('inv:create-assign-hw')
         context['url_list'] = reverse_lazy('inv:list-assign-hw')

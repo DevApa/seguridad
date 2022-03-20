@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 
 from authentication.models import Usuario
 
@@ -6,11 +7,15 @@ from authentication.models import Usuario
 class Frequency(models.Model):
     name = models.CharField(max_length=100, unique=True, db_column='nombre')
     description = models.CharField(max_length=100, null=True, blank=True, db_column='descripcion')
-    state = models.BooleanField(default=False, db_column='estado')
+    state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
         txt = "{0} "
         return txt.format('Frecuencia')
+
+    def to_json(self):
+        items = model_to_dict(self)
+        return items
 
     class Meta:
         verbose_name = 'Frecuencia'
@@ -36,7 +41,7 @@ class EModel(models.Model):
 
     def __str__(self):
         txt = "{0} "
-        return txt.format(self.name)
+        return txt.format(self.description)
 
     class Meta:
         verbose_name = 'Modelo'
@@ -63,10 +68,11 @@ class Generation(models.Model):
 
     def __str__(self):
         txt = "{0} "
-        return txt.format(self.name)
+        return txt.format(self.description)
 
     class Meta:
         db_table = 'inv_generacion'
+        ordering = ['id']
 
 
 class Tipo(models.Model):
@@ -75,7 +81,11 @@ class Tipo(models.Model):
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
-        return self.name
+        return self.description
+
+    def to_json(self):
+        items = model_to_dict(self)
+        return items
 
     class Meta:
         db_table = 'inv_tipo'

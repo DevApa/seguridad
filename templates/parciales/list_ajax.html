@@ -7,11 +7,8 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}"
-          rel="stylesheet" type="text/css"/>
-    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}"
-          rel="stylesheet" type="text/css"/>
-    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}"
+    <link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'inventory/DataTables/css/dataTables.dataTables.css' %}" rel="stylesheet" type="text/css" />
           rel="stylesheet" type="text/css"/>
 {% endblock %}
 
@@ -23,7 +20,7 @@
                 {% block btn_creacion %}
 
                 {% endblock %}
-                <table id="datatable" class="table table-bordered  table-responsive dt-responsive nowrap w-100" style="text-align: center">
+                <table id="inventory" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr role="row">
                            {% block cols %}
@@ -66,21 +63,18 @@
     <script src="{% static 'libs/metismenu/metisMenu.min.js' %}"></script>
     <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
-
+    <script src="{% static 'js/app.js' %}"></script>
      <!-- sweetalert2 -->
     <script src="{% static 'libs/sweetalert2/sweetalert2.all.min.js' %}"></script>
+    <!-- select2-->
+    <script src="{% static 'libs/select2/js/select2.full.min.js' %}"></script>
+
     <script src="{% static 'js/eva.js' %}"></script>
 
-    <!-- Required datatable js -->
+    <script src="{% static 'js/inventory/inventory.js' %}"></script>
+     <!-- Required datatable js -->
     <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
-
     <!-- Responsive examples -->
     <script src="{% static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
-    <!-- Datatable init js -->
-    <script src="{% static 'js/pages/datatables.init.js' %}"></script>
-
-    <script src="{% static 'js/app.js' %}"></script>
-
 {% endblock %}

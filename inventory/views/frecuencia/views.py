@@ -11,6 +11,20 @@ class FrequencyListView(ListView):
     template_name = 'frecuencia/list.html'
     success_url = reverse_lazy('inv:list-frequency')
 
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                for i in Frequency.objects.all():
+                    data.append(i.to_json())
+            else:
+                data['error'] = 'Se ha presentado un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['heading'] = 'Matenimiento Frecuencia'

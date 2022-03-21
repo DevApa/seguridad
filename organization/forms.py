@@ -1,6 +1,6 @@
 from django.forms import *
 
-from organization.models import University, Department, AcademicUnit, SchoolOf
+from organization.models import University, Department, AcademicUnit, SchoolOf, Employee
 
 
 class UniversityForm(ModelForm):
@@ -113,7 +113,6 @@ class DepartmentForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['foundation_date'].input_formats = ['%Y-%m-%d']
         self.fields['academic_unit'].empty_label = 'Seleccione Unidad Academica...!'
-        self.fields['boss'].empty_label = 'Seleccione una Jefe de departamento...!'
         self.fields['academic_unit'].widget.attrs['autofocus'] = True
 
     class Meta:
@@ -132,7 +131,7 @@ class DepartmentForm(ModelForm):
             'academic_unit': Select(attrs={'class': 'form-control'}),
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de la Departamento'}),
             'phone': TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese el teléfono '}),
-            'boss': Select(attrs={'class': 'form-control'}),
+            'boss': TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese el jefe '}),
             'foundation_date': DateInput(attrs={'class': 'form-control', 'type': 'date'}
                                          , format='%Y-%m-%d'),
         }
@@ -149,3 +148,29 @@ class DepartmentForm(ModelForm):
             data['error'] = str(e)
         return data
 
+
+class EmployeeForm(ModelForm):
+    class Meta:
+        model = Employee
+        fields = ['department', 'name', 'lastname', 'identification']
+        labels = {
+            'department': 'Departamento',
+            'name': 'Nombre:',
+            'lastname': 'Apellido:',
+            'identification': 'Identificacion:',
+        }
+        widgets = {
+            'department': Select(attrs={'class': 'form-control'}),
+            'name':
+                TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese nombre del empleado'}),
+            'lastname':
+                TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese apellido del empleado'}),
+            'identification': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese identificacion',
+                                      'onkeypress': 'return validaNumericos(event)'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.fields['department'].widget.attrs['autofocus'] = True
+        self.fields['department'].empty_label = 'Seleccione departamento...!'
+        self.fields['department'].queryset = Department.objects.filter(state=True)

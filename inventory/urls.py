@@ -73,6 +73,7 @@ urlpatterns = [
     url(r'^rubro_capacidad/eliminar/(?P<pk>\d+)/$', login_required(HeadingCapacityDeleteView.as_view()), name='delete-subitem-cap'),
 
     url(r'^asignacion_cabecera/lista', login_required(ItemAssignmentHeaderListView.as_view()), name='list-assignment-cap'),
+    url(r'^asignacion_inventario_export/lista', login_required(export_hw), name='export-hw'),
     url(r'^asignacion_cabecera/crear', login_required(ItemAssignmentHeaderCreateView.as_view()), name='create-assignment-cap'),
     url(r'^asignacion_cabecera/editar/(?P<pk>\d+)/$', login_required(ItemAssignmentHeaderUpdateView.as_view()), name='update-assignment-cap'),
     url(r'^asignacion_cabecera/eliminar/(?P<pk>\d+)/$', login_required(ItemAssignmentHeaderDeleteView.as_view()), name='delete-assignment-cap'),

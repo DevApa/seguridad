@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from organization.views.departamento.views import *
 from organization.views.facultad.views import *
 from organization.views.unidad_academica.views import *
+from organization.views.employee.views import *
 from organization.views.universidad.views import *
 
 app_name = 'org'
@@ -28,4 +29,9 @@ urlpatterns = [
     url(r'^departamento/crear/', login_required(DepartmentCreateView.as_view()), name='dep-create'),
     url(r'^departamento/editar/(?P<pk>\d+)/$', login_required(UniversityUpdateView.as_view()), name='dep-update'),
     url(r'^departamento/eliminar/(?P<pk>\d+)/$', login_required(DepartmentDeleteView.as_view()), name='dep-delete'),
+
+    url(r'^empleado/lista/', login_required(EmployeeListView.as_view()), name='emp-list'),
+    url(r'^empleado/crear/', login_required(EmployeeCreateView.as_view()), name='emp-create'),
+    url(r'^empleado/editar/(?P<pk>\d+)/$', login_required(EmployeeUpdateView.as_view()), name='emp-update'),
+    url(r'^empleado/eliminar/(?P<pk>\d+)/$', login_required(EmployeeDeleteView.as_view()), name='emp-delete'),
 ]

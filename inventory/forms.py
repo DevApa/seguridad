@@ -350,7 +350,7 @@ class ItemAssignmentHeaderForm(ModelForm):
     class Meta:
         model = ItemAssignmentHeader
         fields = ['employee', 'name_equipment', 'location']
-        labels = {'employee' : 'Empleado', 'name_equipment':'Equipo', 'location':'Ubicacion'}
+        labels = {'employee': 'Empleado', 'name_equipment':'Equipo', 'location':'Ubicacion'}
         widgets = {
             'employee': Select(attrs={'class': 'form-control select2'}),
             'name_equipment': TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del equipo'}),

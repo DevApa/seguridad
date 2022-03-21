@@ -103,9 +103,9 @@ WSGI_APPLICATION = 'seguridad.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-CONEXION_NAME = 'seguridad'
-CONEXION_USER = 'dba'
-CONEXION_PASSWORD = 'dba_2022'
+CONEXION_NAME = 'gocd'
+CONEXION_USER = 'postgres'
+CONEXION_PASSWORD = 'Ingreso.1'
 CONEXION_HOST = 'localhost'
 CONEXION_PORT = 5432
 

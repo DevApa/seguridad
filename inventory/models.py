@@ -1,7 +1,8 @@
 from django.db import models
+from django.forms import model_to_dict
 
 from authentication.models import Usuario
-from organization.models import Department
+from organization.models import Department, Employee
 
 
 class Frequency(models.Model):
@@ -16,6 +17,10 @@ class Frequency(models.Model):
     def __str__(self):
         txt = "{0} "
         return txt.format(self.description)
+
+    def to_json(self):
+        items = model_to_dict(self)
+        return items
 
     class Meta:
         verbose_name = 'Frecuencia'
@@ -120,6 +125,10 @@ class Type(models.Model):
     def __str__(self):
         return self.description
 
+    def to_json(self):
+        items = model_to_dict(self)
+        return items
+
     class Meta:
         db_table = 'inv_tipo'
 
@@ -150,7 +159,7 @@ class Software(models.Model):
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
-        return self.description
+        return f'{self.description}-{self.version}'
 
     class Meta:
         db_table = 'inv_software'
@@ -206,7 +215,7 @@ class HeadingCapacity(models.Model):
 
 
 class ItemAssignmentHeader(models.Model):
-    employee = models.ForeignKey(Usuario, db_column='empleado', on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, db_column='empleado', on_delete=models.CASCADE)
     location = models.ForeignKey(Location, db_column='ubicacion', on_delete=models.CASCADE)
     name_equipment = models.TextField(max_length=1000, db_column='nombre_equipo')
     user_create = models.CharField(max_length=25, db_column='usuario_registra')
@@ -216,7 +225,7 @@ class ItemAssignmentHeader(models.Model):
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
-        return self.name_equipment
+        return f'{self.employee.name} {self.employee.lastname}-{self.name_equipment}'
 
     class Meta:
         db_table = 'inv_item_asignacion_cabecera'

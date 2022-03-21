@@ -13,7 +13,7 @@ Si no realizó esta solicitud, simplemente puede ignorar este correo electrónic
 
 
 Atentamente,
-El equipo de SECOED
+El equipo de GOCD
 
 
 

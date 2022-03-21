@@ -14,6 +14,7 @@ class DepartmentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['heading'] = 'Matenimiento Departamento'
+        context['object_list'] = Department.objects.filter(state=True)
         context['create_url'] = reverse_lazy('org:dep-create')
         context['url_list'] = reverse_lazy('org:dep-list')
         return context

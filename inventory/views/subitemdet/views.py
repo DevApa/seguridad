@@ -13,8 +13,8 @@ class HeadingDetailListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = 'Matenimiento Rubro Detalle'
-        context['pageview'] = 'Rubro Detalle'
+        context['heading'] = 'Matenimiento Tecnologia'
+        context['pageview'] = 'Tecnologia'
         context['object_list'] = HeadingDetail.objects.filter(state=True)
         context['create_url'] = reverse_lazy('inv:create-subitem-det')
         context['url_list'] = reverse_lazy('inv:list-subitem-det')

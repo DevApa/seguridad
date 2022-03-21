@@ -5,6 +5,7 @@
         <button class="rounded-circle btn btn-outline-info" type="button" onclick="openModal('{% url 'inv:create-assignment-cap' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
             <i class="fas fa-plus"></i>
         </button>
+    <a class="btn btn-primary" href="{% url 'inv:export-hw' %}" role="button">Exportar Excel</a>
     </div>
 {% endblock %}
 

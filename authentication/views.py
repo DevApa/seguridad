@@ -211,9 +211,10 @@ class UserView(View):
             if not verify(identification):
                 messages.warning(request, "El numero de identificación es invalida", "warning")
                 return redirect('usuario')
-            split = request.POST['nombres'].split(' ')
-            split1 = request.POST['apellidos'].split(' ')
-            pswd = split[0][0].upper() + split1[0][0].lower() + "-" + request.POST['identificacion']
+            # split = request.POST['nombres'].split(' ')
+            # split1 = request.POST['apellidos'].split(' ')
+            # pswd = split[0][0].upper() + split1[0][0].lower() + "-" + request.POST['identificacion']
+            pswd = request.POST['identificacion']
 
             if user_form.is_valid():
                 if email_send:

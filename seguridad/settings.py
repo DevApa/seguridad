@@ -166,6 +166,7 @@ else:
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+email_send = False
 # SMTP Configure
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

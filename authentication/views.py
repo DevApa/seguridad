@@ -13,6 +13,7 @@ from django.utils.encoding import force_bytes
 from django.db.models.query_utils import Q
 from authentication.models import Usuario
 from authentication.forms import UserRegisterForm
+from seguridad.settings import email_send
 
 username = ''
 
@@ -88,7 +89,7 @@ class PagesRecoverpwView(View):
                             }
                             email = render_to_string(email_template_name, c)
                             try:
-                                send_mail(subject, email, 'secoed.web@gmail.com',
+                                send_mail(subject, email, 'sigocd.web@gmail.com',
                                           [user.email], fail_silently=False)
                             except BadHeaderError:
                                 messages.info(request, "Email Doesn't Exists ")
@@ -137,9 +138,9 @@ def verificar(nro):
     l = len(nro)
     if l == 10 or l == 13:  # verificar la longitud correcta
         cp = int(nro[0:2])
-        if cp >= 1 and cp <= 24:  # verificar codigo de provincia
+        if 1 <= cp <= 24:  # verificar codigo de provincia
             tercer_dig = int(nro[2])
-            if tercer_dig >= 0 and tercer_dig < 6:  # numeros enter 0 y 6
+            if 0 <= tercer_dig < 6:  # numeros enter 0 y 6
                 if l == 10:
                     return __validar_ced_ruc(nro, 0)
                 elif l == 13:
@@ -181,6 +182,19 @@ def __validar_ced_ruc(nro, tipo):
     val = base - mod if mod != 0 else 0
     return val == d_ver
 
+def send_email_registro(email, name, last_name, identify, password):
+        subject = "USUARIO DE INGRESO PARA EL SIGOCD"
+        email_template_name = "authentication/register-email.txt"
+        email_user = email
+        c = {
+            'username': identify,
+            'password': password,
+            'nombres': name,
+            'apellidos': last_name,
+        }
+        email_1 = render_to_string(email_template_name, c)
+        send_mail(subject, email_1, 'sigocd@gmail.com',
+                  [email_user], fail_silently=False)
 
 class UsuarioView(View):
     # Carga los datos iniciales del HTML
@@ -195,7 +209,7 @@ class UsuarioView(View):
             userForm = UserRegisterForm(request.POST)
             # Validar identificacion
             identificacion = request.POST['identificacion']
-            if verificar(identificacion) == False:
+            if not verificar(identificacion):
                 messages.warning(request, "El numero de identificación es invalida", "warning")
                 return redirect('usuario')
             # Registrar user moodle
@@ -204,19 +218,14 @@ class UsuarioView(View):
             pswd = split[0][0].upper() + split1[0][0].lower() + "-" + request.POST['identificacion']
 
             if userForm.is_valid():
-                subject = "USUARIO DE INGRESO PARA EL SECOED"
-                email_template_name = "authentication/register-email.txt"
-                emailUser = request.POST['email']
-                c = {
-                    'username': request.POST['identificacion'],
-                    'password': pswd,
-                    'nombres': request.POST['nombres'],
-                    'apellidos': request.POST['apellidos'],
-                }
-                email_1 = render_to_string(email_template_name, c)
-                send_mail(subject, email_1, 'secoed.web@gmail.com',
-                          [emailUser], fail_silently=False)
-                userForm.save()
+                if email_send:
+                    email_user = request.POST['email']
+                    name = request.POST['nombres']
+                    last_name = request.POST['apellidos']
+                    dni = request.POST['identificacion']
+                    send_email_registro(email_user, name, last_name, dni, pswd)
+                else:
+                    userForm.save()
                 messages.success(request, "Se registro correctamente", "success")
             else:
                 # validar email existente

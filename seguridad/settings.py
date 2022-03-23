@@ -173,7 +173,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'academycmav@gmail.com'
-EMAIL_HOST_PASSWORD = 'Ap4r1c101982'
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'academycmav@gmail.com'
 
 LOGIN_REDIRECT_URL = '/authentication/pages-login'

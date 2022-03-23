@@ -154,7 +154,7 @@ class RolContentView(View):
     # Carga los datos iniciales del HTML
     def get(self, request):
         rol = Rol.objects.order_by('descripcion')
-        greeting = {'heading': "Roles del SECOED", 'pageview': "Administración", 'rolview': rol}
+        greeting = {'heading': "Roles", 'pageview': "Administración", 'rolview': rol}
         return render(request, 'conf/roles.html', greeting)
 
     # Metodo para guardar un nuevo rol

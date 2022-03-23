@@ -2,14 +2,16 @@
 
 Bienvenido {{apellidos}} {{nombres}},
 
-Ahora eres parte de la comunidad del "Sistema de Evaluación y Coevaluación Docente", a continuacion encontraras las creedenciales
-para el acesso a la plataforma digital:
+Usted ha sido registrado como usuario del "Sistema de Gestión de Centros de Computo", en esté email encontrá las creedenciales
+para el acesso al sistema:
 
 
 Su usuario es : {{username}}
-Tu contraseña es : {{password}}
+Su contraseña es : {{password}}
 
 
-Nota: Se recomienda modificar su contraseña previamente al utilizar la plataforma SECOED
+Nota: Por favor, asegurese de cambiar su contraseña, cuando haya ingresado al sistema.
+
+
 
 {% endautoescape %}

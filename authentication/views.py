@@ -13,6 +13,7 @@ from django.utils.encoding import force_bytes
 from django.db.models.query_utils import Q
 from authentication.models import Usuario
 from authentication.forms import UserRegisterForm
+from seguridad.settings import email_send
 
 username = ''
 
@@ -28,19 +29,19 @@ class PagesLoginView(View):
 
     def post(self, request):
         if request.method == 'POST':
-            username = request.POST['username']
+            user_name = request.POST['username']
             password = request.POST['password']
-            if username == '':
+            if user_name == '':
                 messages.error(request, 'Ingrese su usuario')
                 return redirect('pages-login')
             elif password == '':
                 messages.error(request, 'Ingrese su contraseña')
                 return redirect('pages-login')
             else:
-                user = auth.authenticate(username=username, password=password)
+                user = auth.authenticate(username=user_name, password=password)
                 if user is not None:
                     if user.usuario_activo:
-                        request.session['username'] = username
+                        request.session['username'] = user_name
                         request.session['isModulo'] = False
                         auth.login(request, user)
                         return redirect('dashboard')
@@ -88,7 +89,7 @@ class PagesRecoverpwView(View):
                             }
                             email = render_to_string(email_template_name, c)
                             try:
-                                send_mail(subject, email, 'secoed.web@gmail.com',
+                                send_mail(subject, email, 'sigocd@gmail.com',
                                           [user.email], fail_silently=False)
                             except BadHeaderError:
                                 messages.info(request, "Email Doesn't Exists ")
@@ -133,13 +134,13 @@ def logout(request):
     return redirect('pages-login')
 
 
-def verificar(nro):
+def verify(nro):
     l = len(nro)
     if l == 10 or l == 13:  # verificar la longitud correcta
         cp = int(nro[0:2])
-        if cp >= 1 and cp <= 24:  # verificar codigo de provincia
+        if 1 <= cp <= 24:  # verificar codigo de provincia
             tercer_dig = int(nro[2])
-            if tercer_dig >= 0 and tercer_dig < 6:  # numeros enter 0 y 6
+            if 0 <= tercer_dig < 6:  # numeros enter 0 y 6
                 if l == 10:
                     return __validar_ced_ruc(nro, 0)
                 elif l == 13:
@@ -182,91 +183,93 @@ def __validar_ced_ruc(nro, tipo):
     return val == d_ver
 
 
-class UsuarioView(View):
-    # Carga los datos iniciales del HTML
+def send_email_registro(email, name, last_name, identify, password):
+    subject = "USUARIO DE INGRESO PARA EL SIGOCD"
+    email_template_name = "authentication/register-email.txt"
+    email_user = email
+    c = {
+        'username': identify,
+        'password': password,
+        'nombres': name,
+        'apellidos': last_name,
+    }
+    email_1 = render_to_string(email_template_name, c)
+    send_mail(subject, email_1, 'sigocd@gmail.com',
+              [email_user], fail_silently=False)
+
+
+class UserView(View):
     def get(self, request):
         usuario = Usuario.objects.filter(usuario_activo=True).order_by('apellidos')
         greeting = {'heading': "Usuario", 'pageview': "Administración", 'usuarioview': usuario}
         return render(request, 'authentication/usuario.html', greeting)
 
-    # Metodo para guardar un nuevo usuario
-    def newUsuario(request):
+    def register(request):
         if request.method == 'POST':
-            userForm = UserRegisterForm(request.POST)
-            # Validar identificacion
-            identificacion = request.POST['identificacion']
-            if verificar(identificacion) == False:
+            user_form = UserRegisterForm(request.POST)
+            identification = request.POST['identificacion']
+            if not verify(identification):
                 messages.warning(request, "El numero de identificación es invalida", "warning")
                 return redirect('usuario')
-            # Registrar user moodle
             split = request.POST['nombres'].split(' ')
             split1 = request.POST['apellidos'].split(' ')
             pswd = split[0][0].upper() + split1[0][0].lower() + "-" + request.POST['identificacion']
 
-            if userForm.is_valid():
-                subject = "USUARIO DE INGRESO PARA EL SECOED"
-                email_template_name = "authentication/register-email.txt"
-                emailUser = request.POST['email']
-                c = {
-                    'username': request.POST['identificacion'],
-                    'password': pswd,
-                    'nombres': request.POST['nombres'],
-                    'apellidos': request.POST['apellidos'],
-                }
-                email_1 = render_to_string(email_template_name, c)
-                send_mail(subject, email_1, 'secoed.web@gmail.com',
-                          [emailUser], fail_silently=False)
-                userForm.save()
+            if user_form.is_valid():
+                if email_send:
+                    email_user = request.POST['email']
+                    name = request.POST['nombres']
+                    last_name = request.POST['apellidos']
+                    dni = request.POST['identificacion']
+                    send_email_registro(email_user, name, last_name, dni, pswd)
+                else:
+                    user_form.save()
                 messages.success(request, "Se registro correctamente", "success")
             else:
-                # validar email existente
                 aux = Usuario.objects.filter(email=request.POST['email'])
                 if aux:
                     messages.warning(request, "Ya exite ese correo", "warning")
-                # validar email existente
                 aux = Usuario.objects.filter(identificacion=request.POST['identificacion'])
                 if aux:
                     messages.warning(request, "Ya exite un usuario con esta identificación", "warning")
             return redirect('usuario')
         else:
-            usuarioFormView = UserRegisterForm();
-            usuario = Usuario()
+            user_form = UserRegisterForm()
+            user = Usuario()
             view = False
-            context = {'usuarioFormView': usuarioFormView, 'usuario': usuario, 'view': view}
+            context = {'usuarioFormView': user_form, 'usuario': user, 'view': view}
         return render(request, 'authentication/usuarioForm.html', context)
 
-    # Consulta el registro de un usuario por su pk
-    def viewUsuario(request, pk):
-        usuario = get_object_or_404(Usuario, pk=pk)
-        usuarioFormView = UserRegisterForm(instance=usuario)
+    def view_user(request, pk):
+        user = get_object_or_404(Usuario, pk=pk)
+        user_form = UserRegisterForm(instance=user)
         view = True
-        context = {'usuarioFormView': usuarioFormView, 'usuario': usuario, 'view': view}
+        context = {'usuarioFormView': user_form, 'usuario': user, 'view': view}
         return render(request, 'authentication/usuarioForm.html', context)
 
-    # Editar los datos de un usuario por su pk
-    def editUsuario(request, pk):
-        usuario = get_object_or_404(Usuario, pk=pk)
+    def update(request, pk):
+        obj = get_object_or_404(Usuario, pk=pk)
+        context = {}
         if request.method == 'POST':
-            identificacion = request.POST['identificacion']
-            if not verificar(identificacion):
+            identification = request.POST['identificacion']
+            if not verify(identification):
                 messages.warning(request, "El número de identificación es invalida", "warning")
                 return redirect('usuario')
-            form = UserRegisterForm(request.POST, instance=usuario)
+            form = UserRegisterForm(request.POST, instance=obj)
             if form.is_valid():
                 form.save()
                 messages.success(request, "Se edito correctamente", "success")
                 return redirect('usuario')
         else:
-            usuarioFormView = UserRegisterForm(instance=usuario)
+            user_form = UserRegisterForm(instance=obj)
             view = False
-            context = {'usuarioFormView': usuarioFormView, 'usuario': usuario, 'view': view}
+            context = {'usuarioFormView': user_form, 'usuario': obj, 'view': view}
         return render(request, 'authentication/usuarioForm.html', context)
 
-    # Elimina un registro del usuario
-    def deleteUsuario(request, pk):
-        usuario = get_object_or_404(Usuario, pk=pk)
-        if usuario:
-            usuario.delete()
+    def delete(request, pk):
+        user = get_object_or_404(Usuario, pk=pk)
+        if user:
+            user.delete()
             messages.success(request, "Se ha eliminado correctamente", "success")
         return redirect('usuario')
 
@@ -275,25 +278,25 @@ class UsuarioPerfilView(View):
     template_name = 'authentication/usuarioPerfil.html'
 
     def get(self, request):
-        usuario = get_object_or_404(Usuario, pk=request.user.id)
-        usuarioPerfilForm = UsuarioPerfilForm(instance=usuario)
-        greeting = {'heading': "Perfil", 'pageview': "Perfil", "form": usuarioPerfilForm, "usuario": usuario}
+        user = get_object_or_404(Usuario, pk=request.user.id)
+        user_perf_form = UsuarioPerfilForm(instance=user)
+        greeting = {'heading': "Perfil", 'pageview': "Perfil", "form": user_perf_form, "usuario": user}
         return render(request, self.template_name, greeting)
 
-    def editUsuarioPerfil(request, pk):
-        usuario = get_object_or_404(Usuario, pk=pk)
+    def update(self, request, pk):
+        user = get_object_or_404(Usuario, pk=pk)
         if request.method == 'POST':
-            usuarioPerfilForm = UsuarioPerfilForm(data = request.POST, instance=usuario, files=request.FILES)
-            print(usuarioPerfilForm)
-            if usuarioPerfilForm.is_valid():
-                usuarioPerfilForm.save()
+            user_perf_form = UsuarioPerfilForm(data=request.POST, instance=user, files=request.FILES)
+            print(user_perf_form)
+            if user_perf_form.is_valid():
+                user_perf_form.save()
                 messages.success(request, "Se edito correctamente", "success")
                 return redirect('user')
             else:
                 messages.success(request, "No se puede editar", "error")
                 return redirect('user')
         else:
-            usuarioPerfilForm = UsuarioPerfilForm(instance=usuario)
+            user_perf_form = UsuarioPerfilForm(instance=user)
             view = False
-            context = {'usuarioPerfilForm': usuarioPerfilForm, 'usuario': usuario, 'view': view}
+            context = {'usuarioPerfilForm': user_perf_form, 'usuario': user, 'view': view}
         return render(request, 'authentication/usuario-perfil.html', context)

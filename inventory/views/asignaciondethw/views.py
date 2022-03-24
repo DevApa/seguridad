@@ -73,8 +73,8 @@ class ItemAssigmentHardwareDetailListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = 'Matenimiento Asignacion Hardware'
-        context['pageview'] = 'Asignacion Hardware'
+        context['heading'] = 'Matenimiento Asignación Hardware'
+        context['pageview'] = 'Asignación Hardware'
         context['object_list'] = ItemAssigmentHardwareDetail.objects.filter(state=True)
         context['create_url'] = reverse_lazy('inv:create-assignment-hw')
         context['url_list'] = reverse_lazy('inv:list-assignment-hw')
@@ -94,13 +94,13 @@ class ItemAssigmentHardwareDetailCreateView(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'Asignacion Hardware registrada correctamente'
+                    message = f'Asignación Hardware registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'Asignacion Hardward no se pudo registrar!'
+                    message = f'Asignación Hardward no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -111,7 +111,7 @@ class ItemAssigmentHardwareDetailCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación de Asignacion Hardware'
+        context['title'] = 'Creación de Asignación Hardware'
         context['action'] = 'add'
         context['list_url'] = reverse_lazy('inv:list-assignment-hw')
         return context
@@ -129,13 +129,13 @@ class ItemAssigmentHardwareDetailUpdateView(UpdateView):
             form = self.form_class(request.POST, instance=self.get_object())
             if form.is_valid():
                 form.save()
-                message = f'Asignacion Hardware actualizado correctamente'
+                message = f'Asignación Hardware actualizado correctamente'
                 error = 'No hay error'
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 201
                 return response
             else:
-                message = f'{self.model.__name__} no se pudo actualizar!'
+                message = f'Asignación Hardware no se pudo actualizar!'
                 error = form.errors
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 400
@@ -146,7 +146,7 @@ class ItemAssigmentHardwareDetailUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Actualizar Asignacion Hardware'
+        context['title'] = 'Actualizar Asignación Hardware'
         context['action'] = 'edit'
         context['list_url'] = reverse_lazy('inv:list-assignment-hw')
         return context
@@ -161,7 +161,7 @@ class ItemAssigmentHardwareDetailDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'Asignacion Hardware eliminado correctamente!'
+            message = f'Asignación Hardware eliminado correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

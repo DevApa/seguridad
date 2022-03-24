@@ -54,7 +54,7 @@ class FrequencyCreateView(CreateView):
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Frecuencia no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -84,13 +84,13 @@ class FrequencyUpdateView(UpdateView):
             form = self.form_class(request.POST, instance=self.get_object())
             if form.is_valid():
                 form.save()
-                message = f'{self.model.__name__} actualizado correctamente'
+                message = f'Frecuencia actualizado correctamente'
                 error = 'No hay error'
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 201
                 return response
             else:
-                message = f'{self.model.__name__} no se pudo actualizar!'
+                message = f'Frecuencia no se pudo actualizar!'
                 error = form.errors
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 400
@@ -116,7 +116,7 @@ class FrequencyDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'{self.model.__name__} eliminada correctamente!'
+            message = f'Frecuencia eliminada correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

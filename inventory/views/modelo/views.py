@@ -13,8 +13,8 @@ class EModelListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = 'Matenimiento Modelo'
-        context['pageview'] = 'Modelo'
+        context['heading'] = 'Matenimiento Módelo'
+        context['pageview'] = 'Módelo'
         context['object_list'] = EModel.objects.filter(state=True)
         context['create_url'] = reverse_lazy('inv:create-model')
         context['url_list'] = reverse_lazy('inv:list-model')
@@ -34,13 +34,13 @@ class EModelCreateView(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'Modelo registrado correctamente'
+                    message = f'Módelo registrado correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Módelo no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -51,7 +51,7 @@ class EModelCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación de Modelo'
+        context['title'] = 'Creación de Módelo'
         context['action'] = 'add'
         context['list_url'] = reverse_lazy('inv:list-model')
         return context
@@ -70,13 +70,13 @@ class EModelUpdateView(UpdateView):
             form = self.form_class(request.POST, instance=self.get_object())
             if form.is_valid():
                 form.save()
-                message = f'Modelo actualizado correctamente'
+                message = f'Módelo actualizado correctamente'
                 error = 'No hay error'
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 201
                 return response
             else:
-                message = f'{self.model.__name__} no se pudo actualizar!'
+                message = f'Módelo no se pudo actualizar!'
                 error = form.errors
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 400
@@ -87,7 +87,7 @@ class EModelUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Actualizar Modelo'
+        context['title'] = 'Actualizar Módelo'
         context['action'] = 'edit'
         context['list_url'] = reverse_lazy('inv:list-model')
         return context
@@ -102,7 +102,7 @@ class EModelDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'Modelo eliminado correctamente!'
+            message = f'Módelo eliminado correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

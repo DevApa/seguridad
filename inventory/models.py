@@ -7,7 +7,7 @@ from organization.models import Department, Employee
 
 class Frequency(models.Model):
     name = models.CharField(max_length=100, unique=True, null=True,  db_column='nombre')
-    description = models.CharField(max_length=100, unique=True, db_column='descripcion')
+    description = models.CharField('Descripción', max_length=100, unique=True, db_column='descripcion')
     user_create = models.CharField(max_length=25, null=True, db_column='usuario_registra')
     user_modify = models.CharField(max_length=25, null=True, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
@@ -45,7 +45,7 @@ class Technology(models.Model):
 class Brand(models.Model):
     code = models.TextField(db_column='codigo', null='True', max_length=1000, unique=True)
     name = models.TextField(max_length=100, unique=True, null='True', db_column='nombre')
-    description = models.TextField(max_length=1000, unique=True, db_column='descripcion')
+    description = models.TextField('descripción', max_length=1000, unique=True, db_column='descripcion')
     user_create = models.CharField(max_length=25, null='True', db_column='usuario_registra')
     user_modify = models.CharField(max_length=25, null='True', db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
@@ -62,7 +62,7 @@ class Brand(models.Model):
 
 class EModel(models.Model):
     name = models.CharField(max_length=100, null=True, db_column='nombre')
-    description = models.CharField(max_length=1000, null=False, blank=False, unique=True, db_column='Descripcion')
+    description = models.CharField('Descripción', max_length=1000, null=False, blank=False, unique=True, db_column='Descripcion')
     user_create = models.CharField(max_length=25, null=True, db_column='usuario_registra')
     user_modify = models.CharField(max_length=25, null=True, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
@@ -74,12 +74,12 @@ class EModel(models.Model):
         return txt.format(self.description)
 
     class Meta:
-        verbose_name = 'Modelo'
+        verbose_name = 'Módelo'
         db_table = 'inv_modelo'
 
 
 class Location(models.Model):
-    departament = models.ForeignKey(Department, db_column='id_departamento', on_delete=models.CASCADE)
+    departament = models.ForeignKey(Department, db_column='id_departamento', on_delete=models.CASCADE, verbose_name='Departamento')
     name = models.CharField(db_column='nombre', max_length=255)
     description = models.CharField(db_column='description', max_length=1000)
     user_create = models.CharField(max_length=25, db_column='usuario_registra')
@@ -184,7 +184,7 @@ class Heading(models.Model):
 
 class HeadingDetail(models.Model):
     heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE, verbose_name="Rubro")
-    description = models.CharField(db_column='description', max_length=1000)
+    description = models.CharField('Descripción', db_column='description', max_length=1000)
     user_create = models.CharField(max_length=25, db_column='usuario_registra')
     user_update = models.CharField(max_length=25, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
@@ -200,7 +200,7 @@ class HeadingDetail(models.Model):
 
 class HeadingCapacity(models.Model):
     heading = models.ForeignKey(Heading, db_column='codigo', on_delete=models.CASCADE, verbose_name="Rubro")
-    value = models.CharField(db_column='valor', max_length=1000, verbose_name="Descripcion")
+    value = models.CharField(db_column='valor', max_length=1000, verbose_name="Descripción")
     user_create = models.CharField(max_length=25, db_column='usuario_registra')
     user_update = models.CharField(max_length=25, db_column='usuario_modifica')
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')

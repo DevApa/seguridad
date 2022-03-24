@@ -13,8 +13,8 @@ class SoftwareDetailListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = 'Matenimiento Asignacion Software'
-        context['pageview'] = 'Asignacion Software'
+        context['heading'] = 'Matenimiento Asignación Software'
+        context['pageview'] = 'Asignación Software'
         context['object_list'] = SoftwareDetail.objects.filter(state=True)
         context['create_url'] = reverse_lazy('inv:create-assignment-sw')
         context['url_list'] = reverse_lazy('inv:list-assignment-sw')
@@ -34,13 +34,13 @@ class SoftwareDetailCreateView(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'Asignacion Software registrada correctamente'
+                    message = f'Asignación Software registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'Asignacion Software no se pudo registrar!'
+                    message = f'Asignación Software no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -51,7 +51,7 @@ class SoftwareDetailCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación de Asignacion Software'
+        context['title'] = 'Creación de Asignación Software'
         context['action'] = 'add'
         context['list_url'] = reverse_lazy('inv:list-assignment-sw')
         return context
@@ -69,13 +69,13 @@ class SoftwareDetailUpdateView(UpdateView):
             form = self.form_class(request.POST, instance=self.get_object())
             if form.is_valid():
                 form.save()
-                message = f'Asignacion Software actualizado correctamente'
+                message = f'Asignación Software actualizado correctamente'
                 error = 'No hay error'
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 201
                 return response
             else:
-                message = f'{self.model.__name__} no se pudo actualizar!'
+                message = f'Asignación Software no se pudo actualizar!'
                 error = form.errors
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 400
@@ -86,7 +86,7 @@ class SoftwareDetailUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Actualizar Asignacion Software'
+        context['title'] = 'Actualizar Asignación Software'
         context['action'] = 'edit'
         context['list_url'] = reverse_lazy('inv:list-assignment-sw')
         return context
@@ -101,7 +101,7 @@ class SoftwareDetailDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'Asignacion Software eliminado correctamente!'
+            message = f'Asignación Software eliminado correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

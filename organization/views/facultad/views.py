@@ -14,6 +14,7 @@ class SchoolOfListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['heading'] = 'Matenimiento Facultad'
+        context['pageview'] = 'Facultad'
         context['object_list'] = SchoolOf.objects.filter(state=True)
         context['create_url'] = reverse_lazy('org:fac-create')
         context['url_list'] = reverse_lazy('org:fac-list')
@@ -33,13 +34,13 @@ class SchoolOfCreateView(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} registrada correctamente'
+                    message = f'Facultad registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Facultad no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -69,13 +70,13 @@ class SchoolOfUpdateView(UpdateView):
                 form = self.form_class(request.POST, instance=self.get_object())
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} actualizado correctamente'
+                    message = f'Facultad actualizada correctamente'
                     error = 'No hay error'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo actualizar!'
+                    message = f'Facultad no se pudo actualizar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -101,7 +102,7 @@ class SchoolOfDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'{self.model.__name__} eliminada correctamente!'
+            message = f'Facultad eliminada correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

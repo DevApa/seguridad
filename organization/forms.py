@@ -65,6 +65,7 @@ class SchoolOfForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['university'].empty_label = 'Seleccione una institución '
         self.fields['university'].widget.attrs['autofocus'] = True
+        self.fields['university'].queryset = University.objects.filter(state=True)
         self.fields['foundation_date'].input_formats = ['%Y-%m-%d']
         self.fields['address'].required = False
         self.fields['phone'].required = False
@@ -102,6 +103,7 @@ class AcademicUnitForm(ModelForm):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.fields['schoolOf'].empty_label = 'Seleccione una Facultad'
         self.fields['schoolOf'].widget.attrs['autofocus'] = True
+        self.fields['schoolOf'].queryset = SchoolOf.objects.filter(state=True)
         self.fields['foundation_date'].input_formats = ['%Y-%m-%d']
         self.fields['address'].required = False
         self.fields['phone'].required = False
@@ -112,8 +114,9 @@ class DepartmentForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['foundation_date'].input_formats = ['%Y-%m-%d']
-        self.fields['academic_unit'].empty_label = 'Seleccione Unidad Academica...!'
+        self.fields['academic_unit'].empty_label = 'Seleccione Unidad Académica...!'
         self.fields['academic_unit'].widget.attrs['autofocus'] = True
+        self.fields['academic_unit'].queryset = AcademicUnit.objects.filter(state=True)
 
     class Meta:
         model = Department
@@ -157,7 +160,7 @@ class EmployeeForm(ModelForm):
             'department': 'Departamento',
             'name': 'Nombre:',
             'lastname': 'Apellido:',
-            'identification': 'Identificacion:',
+            'identification': 'Identificación:',
         }
         widgets = {
             'department': Select(attrs={'class': 'form-control'}),
@@ -165,7 +168,7 @@ class EmployeeForm(ModelForm):
                 TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese nombre del empleado'}),
             'lastname':
                 TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese apellido del empleado'}),
-            'identification': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese identificacion',
+            'identification': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese identificación',
                                       'onkeypress': 'return validaNumericos(event)'}),
         }
 

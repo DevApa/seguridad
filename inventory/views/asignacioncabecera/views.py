@@ -13,8 +13,8 @@ class ItemAssignmentHeaderListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = 'Matenimiento Asignacion'
-        context['pageview'] = 'Asignacion'
+        context['heading'] = 'Matenimiento Asignación'
+        context['pageview'] = 'Asignación'
         context['object_list'] = ItemAssignmentHeader.objects.filter(state=True)
         context['create_url'] = reverse_lazy('inv:create-assignment-cap')
         context['url_list'] = reverse_lazy('inv:list-assignment-cap')
@@ -34,13 +34,13 @@ class ItemAssignmentHeaderCreateView(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'Asignacion registrada correctamente'
+                    message = f'Asignación registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'Asignacion no se pudo registrar!'
+                    message = f'Asignación no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -51,7 +51,7 @@ class ItemAssignmentHeaderCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Creación de Asignacion'
+        context['title'] = 'Creación de Asignación'
         context['action'] = 'add'
         context['list_url'] = reverse_lazy('inv:list-assignment-cap')
         return context
@@ -69,13 +69,13 @@ class ItemAssignmentHeaderUpdateView(UpdateView):
             form = self.form_class(request.POST, instance=self.get_object())
             if form.is_valid():
                 form.save()
-                message = f'Asignacion Equipo actualizado correctamente'
+                message = f'Asignación Equipo actualizado correctamente'
                 error = 'No hay error'
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 201
                 return response
             else:
-                message = f'{self.model.__name__} no se pudo actualizar!'
+                message = f'Asignación no se pudo actualizar!'
                 error = form.errors
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 400
@@ -86,7 +86,7 @@ class ItemAssignmentHeaderUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Actualizar Asignacion Equipo'
+        context['title'] = 'Actualizar Asignación Equipo'
         context['action'] = 'edit'
         context['list_url'] = reverse_lazy('inv:list-assignment-cap')
         return context
@@ -101,7 +101,7 @@ class ItemAssignmentHeaderDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'Asignacion Equipo eliminado correctamente!'
+            message = f'Asignación Equipo eliminado correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

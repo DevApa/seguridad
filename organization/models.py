@@ -84,11 +84,12 @@ class Employee(models.Model):
     department = models.ForeignKey(Department, db_column='id_departamento', on_delete=models.CASCADE)
     name = models.CharField(max_length=50, db_column='nombre')
     lastname = models.CharField(max_length=30, db_column='apellido')
-    identification = models.CharField(max_length=13, db_column='identificacion')
+    identification = models.CharField(max_length=13, db_column='identificacion', unique=True)
     state = models.BooleanField(default=True, db_column='estado')
 
     def __str__(self):
         return f'{self.name} {self.lastname}'
 
     class Meta:
+        verbose_name = 'Empleado'
         db_table = 'org_employee'

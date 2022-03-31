@@ -215,7 +215,10 @@ class UsuarioView(View):
             # Registrar user moodle
             split = request.POST['nombres'].split(' ')
             split1 = request.POST['apellidos'].split(' ')
+
             pswd = split[0][0].upper() + split1[0][0].lower() + "-" + request.POST['identificacion']
+
+            #pswd = request.POST['identificacion']
 
             if userForm.is_valid():
                 if email_send:

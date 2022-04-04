@@ -216,9 +216,9 @@ class UsuarioView(View):
             split = request.POST['nombres'].split(' ')
             split1 = request.POST['apellidos'].split(' ')
 
-            pswd = split[0][0].upper() + split1[0][0].lower() + "-" + request.POST['identificacion']
+            #pswd = split[0][0].upper() + split1[0][0].lower() + "-" + request.POST['identificacion']
 
-            #pswd = request.POST['identificacion']
+            pswd = request.POST['identificacion']
 
             if userForm.is_valid():
                 if email_send:
@@ -227,6 +227,7 @@ class UsuarioView(View):
                     last_name = request.POST['apellidos']
                     dni = request.POST['identificacion']
                     send_email_registro(email_user, name, last_name, dni, pswd)
+                    userForm.save()
                 else:
                     userForm.save()
                 messages.success(request, "Se registro correctamente", "success")

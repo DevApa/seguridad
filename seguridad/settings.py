@@ -172,9 +172,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'academycmav@gmail.com'
-EMAIL_HOST_PASSWORD = 'Ap4r1c101982'
-DEFAULT_FROM_EMAIL = 'academycmav@gmail.com'
+EMAIL_HOST_USER = 'gocdadmweb@gmail.com'
+EMAIL_HOST_PASSWORD = 'Sistemas2022'
+DEFAULT_FROM_EMAIL = 'gocdadmweb@gmail.com'
 
 LOGIN_REDIRECT_URL = '/authentication/pages-login'
 LOGOUT_REDIRECT_URL = '/authentication/pages-login'

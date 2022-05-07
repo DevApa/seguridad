@@ -18,7 +18,7 @@ class ModuloForm(ModelForm):
             'key': 'Key:',
         }
         widgets = {
-            'descripcion': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese el nombre del modulo'}),
+            'descripcion': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese el nombre del módulo'}),
             'orden': TextInput(attrs={'class': 'form-control', 'min': '0', 'type': 'number'}),
             'icon': Select(attrs={'class': 'form-control'}),
             'key': TextInput(
@@ -47,7 +47,7 @@ class MenuForm(ModelForm):
             'url': 'Url:',
         }
         widgets = {
-            'descripcion': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese el nombre del modulo'}),
+            'descripcion': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese el nombre del menú'}),
             'orden': TextInput(attrs={'class': 'form-control', 'min': '0', 'type': 'number'}),
             'icon': Select(attrs={'class': 'form-control'}),
             'href': TextInput(attrs={'class': 'form-control', 'placeHolder': 'Ingrese la url física'}),
@@ -110,5 +110,5 @@ class RolForm(ModelForm):
         }
         widgets = {
             'descripcion': TextInput(
-                attrs={'class': 'form-control', 'placeHolder': 'Ingrese el nombre de la carrera'})
+                attrs={'class': 'form-control', 'placeHolder': 'Ingrese el nombre del rol'})
         }

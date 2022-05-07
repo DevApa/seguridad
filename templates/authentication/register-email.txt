@@ -2,16 +2,13 @@
 
 Bienvenido {{apellidos}} {{nombres}},
 
-Usted ha sido registrado como usuario del "Sistema de Gestión de Centros de Computo", en esté email encontrá las creedenciales
+Usted ha sido registrado como usuario del "Sistema de Gestión de Centros de Datos", en esté email encontrá las creedenciales
 para el acesso al sistema:
 
 
 Su usuario es : {{username}}
-Su contraseña es : {{password}}
-
+Tu contraseña es : {{password}}
 
 Nota: Por favor, asegurese de cambiar su contraseña, cuando haya ingresado al sistema.
-
-
 
 {% endautoescape %}

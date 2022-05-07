@@ -40,7 +40,7 @@ class BrandCreateView(CreateView):
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Marca no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -103,7 +103,7 @@ class BrandDeleteView(DeleteView):
             obj.state = False
             obj.delete()
             obj.save()
-            message = f'{self.model.__name__} eliminada correctamente!'
+            message = f'Marca eliminada correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

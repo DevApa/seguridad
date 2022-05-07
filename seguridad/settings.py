@@ -103,9 +103,9 @@ WSGI_APPLICATION = 'seguridad.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-CONEXION_NAME = 'seguridad'
-CONEXION_USER = 'dba'
-CONEXION_PASSWORD = 'dba_2022'
+CONEXION_NAME = 'gocd'
+CONEXION_USER = 'postgres'
+CONEXION_PASSWORD = 'Ingreso.1'
 CONEXION_HOST = 'localhost'
 CONEXION_PORT = 5432
 
@@ -166,15 +166,15 @@ else:
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-email_send = False
+email_send = True
 # SMTP Configure
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'academycmav@gmail.com'
-EMAIL_HOST_PASSWORD = ''
-DEFAULT_FROM_EMAIL = 'academycmav@gmail.com'
+EMAIL_HOST_USER = 'gocdadmweb@gmail.com'
+EMAIL_HOST_PASSWORD = 'Sistemas2022'
+DEFAULT_FROM_EMAIL = 'gocdadmweb@gmail.com'
 
 LOGIN_REDIRECT_URL = '/authentication/pages-login'
 LOGOUT_REDIRECT_URL = '/authentication/pages-login'

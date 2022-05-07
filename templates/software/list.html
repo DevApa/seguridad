@@ -10,9 +10,9 @@
 <!--Columnas de la tabla-->
 {% block cols %}
     <th>N°</th>
-    <th>Nombre</th>
     <th>Descripción</th>
     <th>Versión</th>
+    <th>Estado</th>
     <th>Acción</th>
 {% endblock %}
 <!--Filas de la tabla-->
@@ -20,9 +20,13 @@
     {% for item in object_list %}
         <tr>
             <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.version }}</td>
+            <td>
+                {% if item.state %}
+                    <span class="badge rounded-pill bg-success" key="t-new">Activo</span>
+                {% endif %}
+            </td>
             <td>
                 <button onclick="openModal('{% url 'inv:update-soft' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
                     <i class="fas fa-pencil-alt"></i>

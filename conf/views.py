@@ -13,7 +13,7 @@ class MenuContentView(View):
         menusview = Menu.objects.order_by('orden')
         modulos = Modulo.objects.order_by('descripcion')
         menusItem = Menu.objects.exclude(url__isnull=False).exclude(modulo_id__isnull=True).order_by('descripcion')
-        greeting = {'heading': "Menu", 'pageview': "Administración", "menusview": menusview}
+        greeting = {'heading': "Menú", 'pageview': "Administración", "menusview": menusview}
         return render(request, 'conf/menu.html', greeting)
 
     # Metodo para guardar un nuevo menu
@@ -86,7 +86,7 @@ class ModuloContentView(View):
     # Carga los datos iniciales del HTML
     def get(self, request):
         modulos = Modulo.objects.order_by('orden')
-        greeting = {'heading': "Modulo", 'pageview': "Administración", 'modulosview': modulos}
+        greeting = {'heading': "Módulo", 'pageview': "Administración", 'modulosview': modulos}
         return render(request, 'conf/modulo.html', greeting)
 
     # Metodo para guardar un nuevo modulo
@@ -154,7 +154,7 @@ class RolContentView(View):
     # Carga los datos iniciales del HTML
     def get(self, request):
         rol = Rol.objects.order_by('descripcion')
-        greeting = {'heading': "Roles del SECOED", 'pageview': "Administración", 'rolview': rol}
+        greeting = {'heading': "Roles", 'pageview': "Administración", 'rolview': rol}
         return render(request, 'conf/roles.html', greeting)
 
     # Metodo para guardar un nuevo rol

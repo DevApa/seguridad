@@ -9,15 +9,15 @@ from django.http import JsonResponse
 class HeadingCapacityListView(ListView):
     model = HeadingCapacity
     template_name = 'subitemcap/list.html'
-    success_url = reverse_lazy('inv:list-sub-item-cap')
+    success_url = reverse_lazy('inv:list-subitem-cap')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = 'Matenimiento Rubro Capacidad'
-        context['pageview'] = 'Rubro Capacidad'
+        context['heading'] = 'Matenimiento Capacidad'
+        context['pageview'] = 'Capacidad'
         context['object_list'] = HeadingCapacity.objects.filter(state=True)
-        context['create_url'] = reverse_lazy('inv:create-sub-item-cap')
-        context['url_list'] = reverse_lazy('inv:list-sub-item-cap')
+        context['create_url'] = reverse_lazy('inv:create-subitem-cap')
+        context['url_list'] = reverse_lazy('inv:list-subitem-cap')
         return context
 
 
@@ -25,7 +25,7 @@ class HeadingCapacityCreateView(CreateView):
     model = HeadingCapacity
     form_class = HeadingCapacityForm
     template_name = "subitemcap/create.html"
-    success_url = reverse_lazy('inv:list-sub-item-cap')
+    success_url = reverse_lazy('inv:list-subitem-cap')
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -53,15 +53,14 @@ class HeadingCapacityCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Creación de Capacidad Rubro'
         context['action'] = 'add'
-        context['list_url'] = reverse_lazy('inv:list-sub-item-cap')
+        context['list_url'] = reverse_lazy('inv:list-subitem-cap')
         return context
-
 
 class HeadingCapacityUpdateView(UpdateView):
     model = HeadingCapacity
     form_class = HeadingCapacityForm
-    template_name = "tipo/update.html"
-    success_url = reverse_lazy('inv:list-sub-item-cap')
+    template_name = "subitemcap/update.html"
+    success_url = reverse_lazy('inv:list-subitem-cap')
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -76,7 +75,7 @@ class HeadingCapacityUpdateView(UpdateView):
                 response.status_code = 201
                 return response
             else:
-                message = f'Capacidad Rubro se pudo actualizar!'
+                message = f'{self.model.__name__} no se pudo actualizar!'
                 error = form.errors
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 400
@@ -87,25 +86,25 @@ class HeadingCapacityUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Actualizar Tipo'
+        context['title'] = 'Actualizar Capacidad Rubro'
         context['action'] = 'edit'
-        context['list_url'] = reverse_lazy('inv:list-sub-item-cap')
+        context['list_url'] = reverse_lazy('inv:list-subitem-cap')
         return context
 
 
 class HeadingCapacityDeleteView(DeleteView):
     model = HeadingCapacity
-    success_url = reverse_lazy('inv:list-sub-item-cap')
+    success_url = reverse_lazy('inv:list-subitem-cap')
 
     def delete(self, request, *args, **kwargs):
         if request.is_ajax():
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'Capacidad Rubro eliminada correctamente!'
+            message = f'Capacidad Rubro eliminado correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201
             return response
         else:
-            return redirect('inv:list-sub-item-cap')
+            return redirect('inv:list-subitem-cap')

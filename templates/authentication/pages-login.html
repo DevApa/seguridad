@@ -47,7 +47,7 @@
                                                         <div class="py-3">
                                                             <p class="font-size-16 mb-4">
                                                                 <b>
-
+                                                                    <img src="{% static 'images/sigocd/sigocd.png' %}" width="50%" height="auto"/>
                                                                 </b>
                                                             </p>
                                                             <div>
@@ -59,6 +59,7 @@
                                                         <div class="py-3">
                                                             <p class="font-size-16 mb-4">
                                                                 <b>
+                                                                    <img src="{% static 'images/sigocd/sigocd.png' %}" width="50%" height="auto"/>
                                                                 </b>
                                                             </p>
                                                             <div>
@@ -100,11 +101,15 @@
                                         {% endfor %}
 
                                         <div class="mb-3">
+
                                             {{ form.username|as_crispy_field }}
+
                                         </div>
 
                                         <div class="mb-3">
+
                                             {{ form.password|as_crispy_field }}
+
                                         </div>
 
                                         <div class="mt-3 d-grid">

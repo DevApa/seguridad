@@ -1,13 +1,12 @@
-{% extends 'parciales/list_buttons.html' %}
+{% extends 'parciales/list.html' %}
 
 {% block btn_creacion %}
     <div class="mb-2">
-        <button class="rounded-circle btn btn-outline-info" type="button" onclick="openModal('{% url 'inv:create-assign-hw' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
+        <button class="rounded-circle btn btn-outline-info" type="button" onclick="openModal('{% url 'inv:create-assignment-hw' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
             <i class="fas fa-plus"></i>
         </button>
     </div>
 {% endblock %}
-
 <!--Columnas de la tabla-->
 {% block cols %}
     <th>N°</th>
@@ -16,17 +15,17 @@
     <th>Tipo</th>
     <th>Marca</th>
     <th>Modelo</th>
-    <th>Caracteristica</th>
-    <th>Tecnologia</th>
+    <th>Sub Item</th>
+    <th>Tecnología</th>
     <th>Frecuencia</th>
-    <th>Capacidad</th>
-    <th>Generacion</th>
-    <th>Codigo Inventario</th>
-    <th>Numero Serie</th>
+    <th>Características</th>
+    <th>Generación</th>
+    <th>Código Inventario</th>
+    <th>Número Serie</th>
     <th>Cantidad</th>
     <th>Observaciones</th>
     <th>Estado</th>
-    <th>Accion</th>
+    <th>Acción</th>
 {% endblock %}
 <!--Filas de la tabla-->
 {% block filas %}
@@ -65,10 +64,10 @@
                 {% endif %}
             </td>
             <td>
-                <button onclick="openModal('{% url 'inv:update-assign-hw' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
+                <button onclick="openModal('{% url 'inv:update-assignment-hw' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
                     <i class="fas fa-pencil-alt"></i>
                 </button>
-                <button onclick="confirmDelete('{% url 'inv:del-assign-hw' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
+                <button onclick="confirmDelete('{% url 'inv:delete-assignment-hw' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
                     <i class="fas fa-trash"></i>
                 </button>
                 {% csrf_token %}

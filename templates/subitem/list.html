@@ -2,7 +2,7 @@
 
 {% block btn_creacion %}
     <div class="mb-2">
-        <button class="rounded-circle btn btn-outline-info" type="button" onclick="openModal('{% url 'inv:create-sub-item' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
+        <button class="rounded-circle btn btn-outline-info" type="button" onclick="openModal('{% url 'inv:create-subitem' %}', 'createModal')" title="Nuevo registro: {{ entity }}" >
             <i class="fas fa-plus"></i>
         </button>
     </div>
@@ -11,6 +11,7 @@
 <!--Columnas de la tabla-->
 {% block cols %}
     <th>N°</th>
+    <th>Item</th>
     <th>Descripción</th>
     <th>Estado</th>
     <th>Acción</th>
@@ -20,6 +21,7 @@
     {% for item in object_list %}
         <tr>
             <td>{{ item.id }}</td>
+            <td>{{ item.item }}</td>
             <td>{{ item.description }}</td>
             <td>
                 {% if item.state %}
@@ -27,10 +29,10 @@
                 {% endif %}
             </td>
             <td>
-                <button onclick="openModal('{% url 'inv:update-sub-item' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
+                <button onclick="openModal('{% url 'inv:update-subitem' item.pk %}', 'updateModal')" class="rounded-circle btn btn-outline-secondary btn-sm edit" title="Editar">
                     <i class="fas fa-pencil-alt"></i>
                 </button>
-                <button onclick="confirmDelete('{% url 'inv:delete-sub-item' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
+                <button onclick="confirmDelete('{% url 'inv:delete-subitem' item.pk %}')" class="rounded-circle btn btn-outline-danger btn-sm trash" title="Borrar">
                     <i class="fas fa-trash"></i>
                 </button>
                 {% csrf_token %}

@@ -34,13 +34,13 @@ class LocationCreateView(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} registrada correctamente'
+                    message = f'Ubicación registrada correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Ubicación no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -70,13 +70,13 @@ class LocationUpdateView(UpdateView):
             form = self.form_class(request.POST, instance=self.get_object())
             if form.is_valid():
                 form.save()
-                message = f'{self.model.__name__} actualizado correctamente'
+                message = f'Ubicación actualizado correctamente'
                 error = 'No hay error'
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 201
                 return response
             else:
-                message = f'{self.model.__name__} no se pudo actualizar!'
+                message = f'Ubicación no se pudo actualizar!'
                 error = form.errors
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 400
@@ -102,7 +102,7 @@ class LocationDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'{self.model.__name__} eliminada correctamente!'
+            message = f'Ubicación eliminada correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201

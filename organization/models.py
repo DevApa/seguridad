@@ -64,7 +64,7 @@ class AcademicUnit(models.Model):
 class Department(models.Model):
     name = models.CharField(max_length=50, db_column='nombre')
     phone = models.TextField(max_length=30, null=True, db_column='telefono')
-    boss = models.ForeignKey(Usuario, db_column='jefe', on_delete=models.CASCADE)
+    boss = models.CharField(max_length=50, db_column='jefe', null='True', blank='True')
     foundation_date = models.DateField(db_column='fecha_fundacion')
     academic_unit = models.ForeignKey(AcademicUnit, db_column='unidad_academica', on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, db_column='fecha_creacion')
@@ -79,3 +79,17 @@ class Department(models.Model):
         verbose_name = 'name'
         db_table = 'org_departamento'
 
+
+class Employee(models.Model):
+    department = models.ForeignKey(Department, db_column='id_departamento', on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, db_column='nombre')
+    lastname = models.CharField(max_length=30, db_column='apellido')
+    identification = models.CharField(max_length=13, db_column='identificacion', unique=True)
+    state = models.BooleanField(default=True, db_column='estado')
+
+    def __str__(self):
+        return f'{self.name} {self.lastname}'
+
+    class Meta:
+        verbose_name = 'Empleado'
+        db_table = 'org_employee'

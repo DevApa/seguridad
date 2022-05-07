@@ -14,7 +14,7 @@ class EModelListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['heading'] = 'Matenimiento Modelo'
-        context['pageview'] = 'Frecuencia'
+        context['pageview'] = 'Modelo'
         context['object_list'] = EModel.objects.filter(state=True)
         context['create_url'] = reverse_lazy('inv:create-model')
         context['url_list'] = reverse_lazy('inv:list-model')
@@ -40,7 +40,7 @@ class EModelCreateView(CreateView):
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Modelo no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -76,7 +76,7 @@ class EModelUpdateView(UpdateView):
                 response.status_code = 201
                 return response
             else:
-                message = f'{self.model.__name__} no se pudo actualizar!'
+                message = f'Modelo no se pudo actualizar!'
                 error = form.errors
                 response = JsonResponse({'message': message, 'error': error})
                 response.status_code = 400

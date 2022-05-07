@@ -1,5 +1,5 @@
-{% extends 'parciales/form_modal_detalle.html' %}
-{% block action %}{% url 'inv:update-assign-hw' object.id %}{% endblock %}
+{% extends 'parciales/form_modal.html' %}
+{% block action %}{% url 'inv:update-assignment-sw' object.id %}{% endblock %}
 {% block id_error %}error_update{% endblock %}
 {% block id_form %}form_update{% endblock %}
 {% block btn %}

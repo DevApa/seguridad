@@ -140,8 +140,9 @@ class UserRegisterForm(forms.ModelForm):
         splitApellidos = apellidos.split(' ')
         identificacion = self.cleaned_data.get('identificacion')
         # Crear password
-        # pswd = splitNombres[0][0].upper() + splitApellidos[0][0].lower() + "-" + identificacion
+        #pswd = splitNombres[0][0].upper() + splitApellidos[0][0].lower() + "-" + identificacion
         pswd = identificacion
+
         if self.instance.pk:
             print("Not edit password user")
         else:

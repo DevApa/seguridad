@@ -14,6 +14,8 @@ class DepartmentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['heading'] = 'Matenimiento Departamento'
+        context['pageview'] = 'Departamento'
+        context['object_list'] = Department.objects.filter(state=True)
         context['create_url'] = reverse_lazy('org:dep-create')
         context['url_list'] = reverse_lazy('org:dep-list')
         return context
@@ -32,13 +34,13 @@ class DepartmentCreateView(CreateView):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} registrada correctamente'
+                    message = f'Departamento registrado correctamente'
                     error = 'No han ocurrido errores'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo registrar!'
+                    message = f'Departamento no se pudo registrar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -68,13 +70,13 @@ class DepartmentUpdateView(UpdateView):
                 form = self.form_class(request.POST, instance=self.get_object())
                 if form.is_valid():
                     form.save()
-                    message = f'{self.model.__name__} actualizado correctamente'
+                    message = f'Departamento actualizado correctamente'
                     error = 'No hay error'
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 201
                     return response
                 else:
-                    message = f'{self.model.__name__} no se pudo actualizar!'
+                    message = f'Departamento no se pudo actualizar!'
                     error = form.errors
                     response = JsonResponse({'message': message, 'error': error})
                     response.status_code = 400
@@ -100,7 +102,7 @@ class DepartmentDeleteView(DeleteView):
             obj = self.get_object()
             obj.state = False
             obj.save()
-            message = f'{self.model.__name__} eliminada correctamente!'
+            message = f'Departamento eliminado correctamente!'
             errors = 'No se encontraron errores'
             response = JsonResponse({'message': message, 'error': errors})
             response.status_code = 201
